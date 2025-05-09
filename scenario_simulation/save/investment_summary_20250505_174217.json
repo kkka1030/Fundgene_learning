@@ -1,0 +1,64 @@
+{
+  "simulation_info": {
+    "start_date": "2007-10-08",
+    "end_date": "2007-10-09",
+    "initial_capital": 500000.0,
+    "final_assets": 500133.3522485459,
+    "return_rate": 0.026670449709182142
+  },
+  "actions": [
+    {
+      "date": "2007-10-08",
+      "action_type": "buy",
+      "timestamp": "2025-05-05T17:42:13.597215",
+      "cash_after": 490000.0,
+      "details": {
+        "fund_code": "000011",
+        "amount": 10000.0,
+        "nav": 7.049,
+        "shares": 1418.6409419775855
+      }
+    },
+    {
+      "date": "2007-10-08",
+      "action_type": "next_day",
+      "timestamp": "2025-05-05T17:42:14.670999",
+      "cash_after": 490000.0,
+      "details": {
+        "from_date": "2007-10-08"
+      }
+    }
+  ],
+  "net_worth_history": [
+    {
+      "date": "2007-10-08",
+      "cash": 500000.0,
+      "holdings_value": 0,
+      "total_assets": 500000.0
+    },
+    {
+      "date": "2007-10-08",
+      "cash": 500000.0,
+      "holdings_value": 0,
+      "total_assets": 500000.0
+    },
+    {
+      "date": "2007-10-08",
+      "cash": 500000.0,
+      "holdings_value": 0,
+      "total_assets": 500000.0
+    },
+    {
+      "date": "2007-10-08",
+      "cash": 490000.0,
+      "holdings_value": 10000.0,
+      "total_assets": 500000.0
+    },
+    {
+      "date": "2007-10-09",
+      "cash": 490000.0,
+      "holdings_value": 10133.352248545893,
+      "total_assets": 500133.3522485459
+    }
+  ]
+}
