@@ -1,0 +1,13 @@
+{
+  "funds": {},
+  "indices": {
+    "SH000001": {
+      "index_name": "上证指数",
+      "records": []
+    },
+    "DJI": {
+      "index_name": "道琼斯工业平均指数",
+      "records": []
+    }
+  }
+}
