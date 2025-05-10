@@ -14,9 +14,6 @@ class SimulationApp:
             initial_capital: 初始资金
         """
         self.scene_path = Path(scene_path)
-        # 获取场景名称（使用目录名）
-        self.scene_name = self.scene_path.name
-        
         # 创建保存目录
         self.save_dir = self.scene_path / "save"
         os.makedirs(self.save_dir, exist_ok=True)
@@ -44,15 +41,9 @@ class SimulationApp:
     def _print_welcome(self):
         """打印欢迎信息"""
         print("\n" + "="*70)
-        print(f"欢迎使用 {self.scene_name} 基金投资模拟系统".center(60))
+        print("欢迎使用 2008 金融危机基金投资模拟系统".center(60))
         print("="*70)
         print(f"初始资金: {self.simulator.initial_capital:,.2f} 元")
-        # 检查 timeline 是否为空
-        if not self.simulator.data.get('timeline'):
-            print("错误：模拟时间线数据为空，请检查数据文件或初始化逻辑。")
-            self.running = False
-            return
-        
         print(f"模拟开始日期: {self.simulator.data['timeline'][0]['date'].strftime('%Y年%m月%d日')}")
         print(f"模拟结束日期: {self.simulator.data['timeline'][-1]['date'].strftime('%Y年%m月%d日')}")
         print("="*70)
@@ -89,7 +80,7 @@ class SimulationApp:
         
         # 显示新闻
         if 'news' in state and state['news']:
-            print("\n这几天的新闻:")
+            print("\n今日新闻:")
             print("-"*70)
             for news in state['news']:
                 print(f"- {news}")
@@ -154,18 +145,6 @@ class SimulationApp:
             result = self.simulator.next_day()
             print(result['message'])
             return
-        
-        # 处理 next 指定日期的命令
-        if command.startswith('next '):
-            parts = command.split()
-            if len(parts) == 2:
-                target_date = parts[1]
-                result = self.simulator.next_to_date(target_date)
-                print(result['message'])
-                return
-            else:
-                print("格式错误。正确格式: next YYYY-MM-DD")
-                return
         
         if command.startswith('buy '):
             try:
@@ -441,7 +420,6 @@ class SimulationApp:
         print("-"*70)
         print("help       - 显示帮助信息")
         print("next (n)   - 进入下一个交易日")
-        print("next YYYY-MM-DD - 跳转到指定交易日")
         print("buy 基金代码 金额  - 购买基金")
         print("sell 基金代码 份额  - 卖出指定份额的基金")
         print("sell 基金代码 百分比% - 卖出指定百分比的基金")

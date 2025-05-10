@@ -80,66 +80,83 @@ def create_db(base_dir, output_db_path):
         FOREIGN KEY (index_code) REFERENCES indices(index_code)
     )
     ''')
-
-    # 插入基金元数据
-    for code, name in FUND_MAPPING.items():
-        cursor.execute("INSERT OR IGNORE INTO funds (fund_code, fund_name) VALUES (?, ?)", (code, name))
-
-    # 插入指数元数据
-    cursor.execute("INSERT OR IGNORE INTO indices (index_code, index_name) VALUES (?, ?)", ("SH000001", "上证指数"))
-
-    # 读取基金CSV（位于主目录下）
-    for file in os.listdir(base_dir):
-        if file.endswith("_2015_history.csv") and file[:6] in FUND_MAPPING:
-            code = file[:6]
-            try:
-                df = pd.read_csv(os.path.join(base_dir, file))
-                for _, row in df.iterrows():
-                    cursor.execute('''
-                    INSERT OR REPLACE INTO fund_nav 
-                    (fund_code, date, unit_nav, acc_nav, daily_growth, status_purchase, status_redeem)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    ''', (
-                        code,
-                        row.get("FSRQ"),
-                        float(row.get("DWJZ")) if not pd.isna(row.get("DWJZ")) else None,
-                        float(row.get("LJJZ")) if not pd.isna(row.get("LJJZ")) else None,
-                        float(row.get("JZZZL")) if not pd.isna(row.get("JZZZL")) else None,
-                        row.get("SGZT") if not pd.isna(row.get("SGZT")) else None,
-                        row.get("SHZT") if not pd.isna(row.get("SHZT")) else None
-                    ))
-            except Exception as e:
-                print(f"处理基金文件 {file} 出错: {e}")
+    # 插入基金信息
+    for fund_code, fund_name in FUND_MAPPING.items():
+        cursor.execute("INSERT OR IGNORE INTO funds (fund_code, fund_name) VALUES (?, ?)",
+                      (fund_code, fund_name))
+    
+    # 插入指数信息
+    cursor.execute("INSERT OR IGNORE INTO indices (index_code, index_name) VALUES (?, ?)",
+                  ("SH000001", "上证指数"))
+    
+    
+    for file_name in os.listdir(base_dir):
+        if file_name.endswith(".csv") and len(file_name) >= 6 and file_name[:6].isdigit():
+            fund_code = file_name[:6]
+            
+            if fund_code in FUND_MAPPING:
+                csv_path = os.path.join(base_dir, file_name)
+                
+                try:
+                    # 使用pandas读取CSV文件
+                    df = pd.read_csv(csv_path)
+                    
+                    # 检查CSV的列是否满足条件
+                    if "FSRQ" in df.columns and "DWJZ" in df.columns and "LJJZ" in df.columns:
+                        # 遍历行并插入数据
+                        for _, row in df.iterrows():
+                            date = row.get("FSRQ")
+                            unit_nav = float(row.get("DWJZ")) if not pd.isna(row.get("DWJZ")) else None
+                            acc_nav = float(row.get("LJJZ")) if not pd.isna(row.get("LJJZ")) else None
+                            growth = float(row.get("JZZZL")) if not pd.isna(row.get("JZZZL")) else None
+                            purchase_status = row.get("SGZT") if not pd.isna(row.get("SGZT")) else None
+                            redeem_status = row.get("SHZT") if not pd.isna(row.get("SHZT")) else None
+                            
+                            cursor.execute('''
+                            INSERT OR REPLACE INTO fund_nav 
+                            (fund_code, date, unit_nav, acc_nav, daily_growth, status_purchase, status_redeem)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            ''', (fund_code, date, unit_nav, acc_nav, growth, purchase_status, redeem_status))
+                except Exception as e:
+                    print(f"处理基金文件 {file_name} 时出错: {e}")
 
     # 读取上证指数CSV（位于 stock_data_2015 子目录）
     index_file = os.path.join(base_dir, "stock_data_2015", "上证指数历史数据 (1).csv")
     if os.path.exists(index_file):
         try:
-            with open(index_file, encoding='utf-8') as f:
+            with open(index_file, 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
-                next(reader)  # skip header
+                headers = next(reader)  # 跳过表头
+                
                 for row in reader:
                     if len(row) >= 7:
-                        cursor.execute('''
-                        INSERT OR REPLACE INTO index_data 
-                        (index_code, date, close, open, high, low, volume, change_pct)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                        ''', (
-                            "SH000001",
-                            row[0].strip('"'),
-                            float(row[1].replace(",", "").strip('"')),
-                            float(row[2].replace(",", "").strip('"')),
-                            float(row[3].replace(",", "").strip('"')),
-                            float(row[4].replace(",", "").strip('"')),
-                            row[5].strip('"'),
-                            row[6].strip('"')
-                        ))
+                        date = row[0].strip('"')
+                        close = row[1].strip('"').replace(',', '')
+                        open_price = row[2].strip('"').replace(',', '')
+                        high = row[3].strip('"').replace(',', '')
+                        low = row[4].strip('"').replace(',', '')
+                        volume = row[5].strip('"')
+                        change_pct = row[6].strip('"')
+                        
+                        try:
+                            cursor.execute('''
+                            INSERT OR REPLACE INTO index_data 
+                            (index_code, date, close, open, high, low, volume, change_pct)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                            ''', ("SH000001", date, float(close), float(open_price), 
+                                 float(high), float(low), volume, change_pct))
+                        except (ValueError, TypeError) as ve:
+                            print(f"上证指数数据转换错误 - 日期: {date}, 错误: {ve}")
+        
         except Exception as e:
             print(f"处理上证指数出错: {e}")
 
     conn.commit()
     conn.close()
     print(f"数据库创建成功：{output_db_path}")
+
+
+
 def export_json_from_db(db_path, output_json_path):
     """从数据库导出JSON格式数据"""
     conn = sqlite3.connect(db_path)

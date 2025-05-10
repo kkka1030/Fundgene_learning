@@ -19,8 +19,9 @@ class DataLoader:
         self.news_data = []
         self.timeline = []
         self.simulation_start_date = None  # 初始化模拟开始日期
-        # 使用传入的场景路径
-        self.db_path = self.scene_path / "converted" / "fund_crisis.db"
+        # 使用相对路径指向原始目录
+        self.original_data_dir = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) /"database"/ "scene" /"2008金融危机"
+        self.db_path = self.original_data_dir / "fund_2007-2008_crisis.db"
         
     def _convert_percentage(self, value):
         """
@@ -169,7 +170,7 @@ class DataLoader:
         """加载新闻数据"""
         try:
             # 使用相对路径指向原始目录下的新闻文件
-            news_path = self.scene_path / "新闻.json"
+            news_path = self.original_data_dir / "新闻.json"
             if news_path.exists():
                 with open(news_path, 'r', encoding='utf-8') as f:
                     news_data = json.load(f)
@@ -204,28 +205,21 @@ class DataLoader:
     def load_scene_description(self):
         """加载场景介绍"""
         try:
-            # 尝试查找介绍.json或者介绍.docx文件
-            intro_files = list(self.scene_path.glob("*介绍.*"))
-            if intro_files:
-                intro_path = intro_files[0]  # 使用找到的第一个介绍文件
-                if intro_path.suffix == '.json':
-                    with open(intro_path, 'r', encoding='utf-8') as f:
-                        description_data = json.load(f)
-                    
-                    # 假设JSON文件包含一个描述字段
-                    if isinstance(description_data, dict) and 'description' in description_data:
-                        description = description_data['description']
-                    else:
-                        # 如果是简单的字符串数组，连接起来
-                        if isinstance(description_data, list):
-                            description = "\n".join(description_data)
-                        else:
-                            description = str(description_data)
-                elif intro_path.suffix == '.docx':
-                    # 如果是docx文件，简单返回文件名作为描述
-                    description = f"请查看 {intro_path.name} 获取详细介绍。"
+            # 使用相对路径指向原始目录下的场景介绍文件
+            intro_path = self.original_data_dir / "2008金融危机介绍.json"
+            if intro_path.exists():
+                with open(intro_path, 'r', encoding='utf-8') as f:
+                    description_data = json.load(f)
+                
+                # 假设JSON文件包含一个描述字段
+                if isinstance(description_data, dict) and 'description' in description_data:
+                    description = description_data['description']
                 else:
-                    description = f"场景介绍文件格式不支持: {intro_path.name}"
+                    # 如果是简单的字符串数组，连接起来
+                    if isinstance(description_data, list):
+                        description = "\n".join(description_data)
+                    else:
+                        description = str(description_data)
                 
                 print("成功加载场景介绍")
                 return description
@@ -237,7 +231,7 @@ class DataLoader:
             return "加载场景介绍时发生错误。"
     
     def get_earliest_valid_date(self):
-        """获取数据库中最早的有效日期（基金数据的最早日期）"""
+        """获取数据库中最早的有效日期（指数和基金同时存在数据的日期）"""
         if not self.db_path.exists():
             print(f"错误：数据库文件 {self.db_path} 不存在")
             return None
@@ -246,6 +240,10 @@ class DataLoader:
             # 连接到SQLite数据库
             conn = sqlite3.connect(self.db_path)
             
+            # 获取index_data表的最早日期
+            index_query = "SELECT MIN(date) as min_date FROM index_data"
+            index_min_date = pd.read_sql_query(index_query, conn)['min_date'].iloc[0]
+            
             # 获取fund_nav表的最早日期
             fund_query = "SELECT MIN(date) as min_date FROM fund_nav"
             fund_min_date = pd.read_sql_query(fund_query, conn)['min_date'].iloc[0]
@@ -253,21 +251,29 @@ class DataLoader:
             conn.close()
             
             # 转换日期字符串为datetime对象
+            if index_min_date:
+                index_min_date = datetime.datetime.strptime(index_min_date, '%Y-%m-%d').date()
+            else:
+                index_min_date = datetime.date(1900, 1, 1)  # 使用一个非常早的日期
+                
             if fund_min_date:
                 fund_min_date = datetime.datetime.strptime(fund_min_date, '%Y-%m-%d').date()
-                print(f"基金数据最早日期: {fund_min_date}")
-                print(f"选择的模拟开始日期: {fund_min_date}")
-                return fund_min_date
             else:
-                print("警告：未找到任何基金数据")
-                return None
+                fund_min_date = datetime.date(1900, 1, 1)  # 使用一个非常早的日期
+            
+            # 返回较晚的日期（两者的最大值）
+            earliest_valid_date = max(index_min_date, fund_min_date)
+            print(f"指数数据最早日期: {index_min_date}, 基金数据最早日期: {fund_min_date}")
+            print(f"选择的模拟开始日期: {earliest_valid_date}")
+            
+            return earliest_valid_date
             
         except Exception as e:
             print(f"获取最早有效日期时出错: {e}")
             return None
     
     def build_timeline(self):
-        """构建结合新闻和基金数据的时间线，确保每个交易日都有基金数据"""
+        """构建结合新闻和基金数据的时间线，确保每个交易日都有上证指数、道琼斯指数和所有基金的数据"""
         self.timeline = []
         
         # 获取所有日期
@@ -291,22 +297,31 @@ class DataLoader:
             # 过滤掉早于最早有效日期的日期
             sorted_dates = [date for date in sorted_dates if date >= earliest_valid_date]
         
-        # 获取实际存在数据的基金代码（不包括指数）
-        fund_codes = []
-        for code in self.funds_data.keys():
-            if code not in ['sh_index', 'dj_index']:
-                df = self.funds_data[code]
-                if not df.empty:  # 只添加有数据的基金
-                    fund_codes.append(code)
-        
-        print(f"找到 {len(fund_codes)} 支有效基金数据")
+        # 获取所有可交易基金代码（不包括指数）
+        fund_codes = [code for code in self.funds_data.keys() if code not in ['sh_index', 'dj_index']]
         
         # 构建时间线
         valid_trading_days = []
         for date in sorted_dates:
+            # 检查当天是否有上证指数数据
+            has_sh_index = False
+            if 'sh_index' in self.funds_data:
+                sh_index_data = self.funds_data['sh_index']
+                if 'date' in sh_index_data.columns:
+                    if not sh_index_data[sh_index_data['date'].dt.date == date].empty:
+                        has_sh_index = True
+            
+            # 检查当天是否有道琼斯指数数据
+            has_dj_index = False
+            if 'dj_index' in self.funds_data:
+                dj_index_data = self.funds_data['dj_index']
+                if 'date' in dj_index_data.columns:
+                    if not dj_index_data[dj_index_data['date'].dt.date == date].empty:
+                        has_dj_index = True
+            
             # 检查当天是否所有基金都有数据
             all_funds_have_data = True
-            for fund_code in fund_codes:  # 只检查实际存在数据的基金
+            for fund_code in fund_codes:
                 if fund_code in self.funds_data:
                     fund_data = self.funds_data[fund_code]
                     if 'date' in fund_data.columns:
@@ -314,8 +329,8 @@ class DataLoader:
                             all_funds_have_data = False
                             break
             
-            # 只要基金数据齐全，就认为是有效交易日
-            if all_funds_have_data:
+            # 只有当同时满足三个条件时，该日期才被视为有效交易日
+            if has_sh_index and has_dj_index and all_funds_have_data:
                 valid_trading_days.append(date)
         
         print(f"筛选后的有效交易日数量: {len(valid_trading_days)}")
@@ -335,11 +350,19 @@ class DataLoader:
                     day_data = fund_data[fund_data['date'].dt.date == date]
                     if not day_data.empty:
                         day_info = {}
-                        # 基金数据
-                        if 'DWJZ' in day_data.columns:
-                            day_info['nav'] = float(day_data['DWJZ'].values[0])
-                        if 'JZZZL' in day_data.columns:
-                            day_info['change_pct'] = float(day_data['JZZZL'].values[0])
+                        
+                        if fund_code in ['sh_index', 'dj_index']:
+                            # 指数数据
+                            if '收盘' in day_data.columns:
+                                day_info['close'] = float(day_data['收盘'].values[0])
+                            if '涨跌幅' in day_data.columns:
+                                day_info['change_pct'] = float(day_data['涨跌幅'].values[0])
+                        else:
+                            # 基金数据
+                            if 'DWJZ' in day_data.columns:
+                                day_info['nav'] = float(day_data['DWJZ'].values[0])
+                            if 'JZZZL' in day_data.columns:
+                                day_info['change_pct'] = float(day_data['JZZZL'].values[0])
                         
                         date_events['funds'][fund_code] = day_info
             
@@ -350,7 +373,7 @@ class DataLoader:
             print(f"模拟开始日期: {self.timeline[0]['date']}")
             print(f"模拟结束日期: {self.timeline[-1]['date']}")
         else:
-            print("警告: 没有找到所有基金都有数据的有效交易日")
+            print("警告: 没有找到同时具有上证指数、道琼斯指数和所有基金数据的有效交易日")
         
         return self.timeline
     
@@ -360,6 +383,7 @@ class DataLoader:
         self.simulation_start_date = self.get_earliest_valid_date()
         
         self.load_fund_data()
+        self.load_index_data()
         self.load_news_data()
         description = self.load_scene_description()
         self.build_timeline()
