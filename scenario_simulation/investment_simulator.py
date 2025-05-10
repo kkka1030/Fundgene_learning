@@ -330,6 +330,29 @@ class InvestmentSimulator:
             'amount': amount
         }
     
+    def _collect_news_between_dates(self, start_date, end_date):
+        """
+        收集两个日期之间（包含结束日期）的所有新闻
+        
+        Args:
+            start_date: 起始日期，不包含
+            end_date: 结束日期，包含
+            
+        Returns:
+            新闻内容列表
+        """
+        news_list = []
+        
+        # 遍历原始新闻数据
+        for news in self.data['news_data']:
+            # 检查新闻日期是否在指定区间内
+            if start_date < news['date'] <= end_date:
+                # 添加日期前缀，以区分不同日期的新闻
+                news_with_date = f"[{news['date'].strftime('%Y-%m-%d')}] {news['content']}"
+                news_list.append(news_with_date)
+        
+        return news_list
+    
     def next_day(self):
         """推进到下一个交易日"""
         if self.is_simulation_over:
@@ -338,6 +361,9 @@ class InvestmentSimulator:
                 'message': '模拟已经结束'
             }
             
+        # 保存当前日期，用于收集新闻
+        previous_date = self.current_date
+        
         # 记录前进操作
         self._record_action('next_day', {
             'from_date': self.current_date.strftime('%Y-%m-%d')
@@ -357,9 +383,116 @@ class InvestmentSimulator:
         # 更新当前日期
         self.current_date = self.data['timeline'][self.current_date_index]['date']
         
+        # 收集上一个交易日到当前交易日之间的新闻
+        between_news = self._collect_news_between_dates(previous_date, self.current_date)
+        if between_news:
+            # 将收集的新闻添加到当前交易日
+            current_day = self.data['timeline'][self.current_date_index]
+            current_day['news'].extend(between_news)
+        
         return {
             'success': True,
             'message': f'进入下一个交易日: {self.current_date.strftime("%Y-%m-%d")}',
+            'simulation_ended': False
+        }
+    
+    def next_to_date(self, target_date_str):
+        """
+        推进到指定的交易日期
+        
+        Args:
+            target_date_str: 目标日期字符串，格式为'YYYY-MM-DD'
+            
+        Returns:
+            操作结果字典
+        """
+        if self.is_simulation_over:
+            return {
+                'success': False,
+                'message': '模拟已经结束'
+            }
+        
+        # 解析目标日期
+        try:
+            target_date = datetime.datetime.strptime(target_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            return {
+                'success': False,
+                'message': f'日期格式错误: {target_date_str}，请使用YYYY-MM-DD格式'
+            }
+        
+        # 检查目标日期是否大于当前日期
+        if target_date <= self.current_date:
+            return {
+                'success': False,
+                'message': f'目标日期 {target_date_str} 必须晚于当前日期 {self.current_date.strftime("%Y-%m-%d")}'
+            }
+        
+        # 检查目标日期是否超过模拟范围
+        timeline_end = self.data['timeline'][-1]['date']
+        if target_date > timeline_end:
+            return {
+                'success': False,
+                'message': f'目标日期 {target_date_str} 超出模拟范围（结束日期：{timeline_end.strftime("%Y-%m-%d")}）'
+            }
+        
+        # 保存当前日期，用于收集新闻
+        previous_date = self.current_date
+        
+        # 记录跳转操作
+        self._record_action('next_to_date', {
+            'from_date': self.current_date.strftime('%Y-%m-%d'),
+            'to_date': target_date_str
+        })
+        
+        # 查找目标日期在时间线中的位置
+        found_date = False
+        original_date_index = self.current_date_index
+        
+        for i in range(self.current_date_index + 1, len(self.data['timeline'])):
+            if self.data['timeline'][i]['date'] >= target_date:
+                self.current_date_index = i
+                self.current_date = self.data['timeline'][i]['date']
+                found_date = True
+                break
+        
+        if not found_date:
+            # 如果没有找到完全匹配的日期，但已经遍历到最后
+            self.current_date_index = len(self.data['timeline']) - 1
+            self.current_date = self.data['timeline'][self.current_date_index]['date']
+            self.is_simulation_over = True
+            
+            # 收集前一个交易日到最后一个交易日之间的新闻
+            between_news = self._collect_news_between_dates(previous_date, self.current_date)
+            if between_news:
+                # 将收集的新闻添加到当前交易日
+                current_day = self.data['timeline'][self.current_date_index]
+                current_day['news'].extend(between_news)
+                
+            return {
+                'success': True,
+                'message': f'已跳转到最后一个交易日 {self.current_date.strftime("%Y-%m-%d")}，模拟已结束',
+                'simulation_ended': True
+            }
+        
+        # 收集前一个交易日到当前交易日之间的新闻
+        between_news = self._collect_news_between_dates(previous_date, self.current_date)
+        if between_news:
+            # 将收集的新闻添加到当前交易日
+            current_day = self.data['timeline'][self.current_date_index]
+            current_day['news'].extend(between_news)
+        
+        # 检查日期是否精确匹配
+        if self.current_date != target_date:
+            return {
+                'success': True,
+                'message': f'{target_date_str} 不是交易日，已跳转到最近的交易日 {self.current_date.strftime("%Y-%m-%d")}',
+                'simulation_ended': False
+            }
+        
+        return {
+            'success': True,
+            'message': f'已跳转到交易日 {self.current_date.strftime("%Y-%m-%d")}',
             'simulation_ended': False
         }
     
