@@ -40,3 +40,10 @@ CLAUDE.md
 **/*agent*/**/*.md
 **/*Agent*/**/*.md
 **/*AGENT*/**/*.md
+venv/
+note.txt
+api_key.txt
+debug/
+test_serp_api.py
+__pycache__/
+.DS_Store
