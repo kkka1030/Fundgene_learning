@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FundGene Agent Workspace Concept</title>
+    <style>
+      :root {
+        color: #102033;
+        background: #f4f8fc;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(120deg, rgba(0, 113, 227, 0.08), transparent 42%),
+          linear-gradient(180deg, #f8fbff, #eef5fb);
+      }
+
+      main {
+        width: min(1440px, calc(100vw - 48px));
+        margin: 0 auto;
+        padding: 32px 0;
+      }
+
+      .topbar,
+      .panel {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 18px 44px rgba(15, 23, 42, 0.06);
+        backdrop-filter: blur(18px) saturate(180%);
+      }
+
+      .topbar {
+        display: flex;
+        min-height: 58px;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 24px;
+        padding: 0 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 760;
+      }
+
+      .logo {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border-radius: 10px;
+        background: #0071e3;
+        color: white;
+        font-size: 13px;
+      }
+
+      .chips {
+        display: flex;
+        gap: 8px;
+      }
+
+      .chip {
+        border: 1px solid rgba(0, 113, 227, 0.14);
+        border-radius: 999px;
+        background: rgba(0, 113, 227, 0.06);
+        color: #0071e3;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 236px minmax(0, 1fr) 246px;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .panel {
+        min-height: 760px;
+        border-radius: 26px;
+        padding: 18px;
+      }
+
+      .kicker {
+        margin: 0;
+        color: #0071e3;
+        font-size: 11px;
+        font-weight: 840;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h2 {
+        margin-top: 8px;
+        font-size: 19px;
+      }
+
+      .muted {
+        color: #64748b;
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .blue-button {
+        display: grid;
+        min-height: 42px;
+        margin: 16px 0;
+        place-items: center;
+        border-radius: 999px;
+        background: #0071e3;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 800;
+        box-shadow: 0 18px 34px rgba(0, 113, 227, 0.2);
+      }
+
+      .brief,
+      .small-card,
+      .answer,
+      .composer {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .brief {
+        padding: 14px;
+        background: linear-gradient(180deg, #eef7ff, rgba(255, 255, 255, 0.8));
+      }
+
+      .stack {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .small-card {
+        padding: 12px;
+      }
+
+      .chat {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .chat-head {
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        padding: 18px 22px;
+      }
+
+      .log {
+        flex: 1;
+        background: linear-gradient(180deg, rgba(248, 251, 255, 0.8), rgba(255, 255, 255, 0.42));
+        padding: 24px;
+      }
+
+      .bubble {
+        width: fit-content;
+        max-width: 64%;
+        margin-left: auto;
+        border-radius: 24px 24px 8px 24px;
+        background: linear-gradient(180deg, #1687ff, #0071e3);
+        color: white;
+        padding: 14px 16px;
+        font-size: 14px;
+        line-height: 1.7;
+        box-shadow: 0 16px 30px rgba(0, 113, 227, 0.18);
+      }
+
+      .answer {
+        margin-top: 18px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 16px 38px rgba(15, 23, 42, 0.055);
+      }
+
+      .answer-main {
+        padding: 18px;
+      }
+
+      .answer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .answer-grid > div {
+        padding: 16px;
+      }
+
+      .answer-grid > div:first-child {
+        border-right: 1px solid rgba(15, 23, 42, 0.08);
+      }
+
+      .composer {
+        margin: 0 22px 18px;
+        padding: 13px;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.055);
+      }
+
+      .composer p:last-child {
+        margin-top: 8px;
+        color: #102033;
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .progress {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 14px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        margin-top: 4px;
+        border-radius: 999px;
+        background: #46d0ac;
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          min-height: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="topbar">
+        <div class="brand"><span class="logo">FG</span> Agent 工作区</div>
+        <div class="chips">
+          <span class="chip">解释</span>
+          <span class="chip">训练</span>
+          <span class="chip">确认</span>
+        </div>
+      </div>
+      <div class="grid">
+        <aside class="panel">
+          <p class="kicker">任务来源</p>
+          <h2>Agent 工作台</h2>
+          <p class="muted">今日判断、历史问题和任务模板一起构成本轮上下文。</p>
+          <div class="blue-button">新会话</div>
+          <section class="brief">
+            <p class="kicker">今日判断</p>
+            <p style="margin-top: 8px; font-weight: 760; line-height: 1.55">
+              今天先检查组合集中度，不急着响应单条新闻。
+            </p>
+          </section>
+          <div class="stack">
+            <div class="small-card">
+              <p class="kicker">最近对话</p>
+              <p style="margin-top: 8px; font-weight: 720">组合集中度检查</p>
+              <p class="muted">今天先检查组合集中度...</p>
+            </div>
+            <div class="small-card">
+              <p class="kicker">任务模板</p>
+              <p class="muted">请把今天的判断拆成事实、影响路径和不确定性。</p>
+            </div>
+          </div>
+        </aside>
+        <section class="panel chat">
+          <div class="chat-head">
+            <p class="kicker">今日判断会作为本轮回答参考</p>
+            <h1 style="margin-top: 8px; font-size: 24px">
+              先看风险来源，再决定要追问什么。
+            </h1>
+          </div>
+          <div class="log">
+            <div class="bubble">央行这条支持性货币政策新闻，对我的资产有什么影响？</div>
+            <article class="answer">
+              <div class="answer-main">
+                <p class="kicker">新闻解读</p>
+                <p style="margin-top: 10px; color: #334155; font-size: 14px; line-height: 1.8">
+                  这条信息更像长期资金和市场结构信号，不是可以直接操作账户的指令。
+                  先检查权益基金比例、第一大持仓和主题重复，再判断是否需要继续学习或训练。
+                </p>
+              </div>
+              <div class="answer-grid">
+                <div>
+                  <p class="kicker">边界提醒</p>
+                  <p class="muted">新闻相关性不是交易指令。</p>
+                </div>
+                <div>
+                  <p class="kicker">下一步</p>
+                  <p class="muted">先检查组合里权益基金和第一大持仓占比。</p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="composer">
+            <p class="kicker">任务输入</p>
+            <p>请结合我的组合，解释《央行：下一阶段将坚持支持性的货币政策立场》可能影响什么、哪些地方不能当成买卖信号？</p>
+          </div>
+        </section>
+        <aside class="panel">
+          <p class="kicker">整理状态</p>
+          <h2>整理进度</h2>
+          <p class="muted">默认显示自然语言步骤；更细的执行依据放在分层入口里。</p>
+          <div class="progress">
+            <div class="step"><span class="dot"></span><div><strong>理解任务意图</strong><p class="muted">已把问题转成工作目标</p></div></div>
+            <div class="step"><span class="dot"></span><div><strong>读取授权上下文</strong><p class="muted">画像、今日简报和最近对话已接入</p></div></div>
+            <div class="step"><span class="dot"></span><div><strong>检查相关来源</strong><p class="muted">组合、资讯和行为线索已整理</p></div></div>
+            <div class="step"><span class="dot"></span><div><strong>生成安全下一步</strong><p class="muted">返回解释、边界和行动入口</p></div></div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

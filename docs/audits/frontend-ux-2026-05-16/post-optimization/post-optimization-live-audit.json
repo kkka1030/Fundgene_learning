@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "base": "http://127.0.0.1:3000",
+    "createdAt": "2026-05-16T06:30:23.984Z"
+  },
+  "routeScreens": [
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "screenshot": "screenshots/overview-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 827
+    },
+    {
+      "route": "/start",
+      "viewport": "desktop",
+      "screenshot": "screenshots/start-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 232
+    },
+    {
+      "route": "/dashboard",
+      "viewport": "desktop",
+      "screenshot": "screenshots/dashboard-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1399
+    },
+    {
+      "route": "/onboarding",
+      "viewport": "desktop",
+      "screenshot": "screenshots/onboarding-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1129
+    },
+    {
+      "route": "/coach",
+      "viewport": "desktop",
+      "screenshot": "screenshots/coach-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 2172
+    },
+    {
+      "route": "/learning",
+      "viewport": "desktop",
+      "screenshot": "screenshots/learning-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 703
+    },
+    {
+      "route": "/learning/fund-basics",
+      "viewport": "desktop",
+      "screenshot": "screenshots/course-fund-basics-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 524
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "desktop",
+      "screenshot": "screenshots/portfolio-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1861
+    },
+    {
+      "route": "/simulation",
+      "viewport": "desktop",
+      "screenshot": "screenshots/simulation-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1230
+    },
+    {
+      "route": "/news",
+      "viewport": "desktop",
+      "screenshot": "screenshots/news-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 693
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "screenshot": "screenshots/overview-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 807
+    },
+    {
+      "route": "/start",
+      "viewport": "mobile",
+      "screenshot": "screenshots/start-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 197
+    },
+    {
+      "route": "/dashboard",
+      "viewport": "mobile",
+      "screenshot": "screenshots/dashboard-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1379
+    },
+    {
+      "route": "/onboarding",
+      "viewport": "mobile",
+      "screenshot": "screenshots/onboarding-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1109
+    },
+    {
+      "route": "/coach",
+      "viewport": "mobile",
+      "screenshot": "screenshots/coach-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 2152
+    },
+    {
+      "route": "/learning",
+      "viewport": "mobile",
+      "screenshot": "screenshots/learning-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 683
+    },
+    {
+      "route": "/learning/fund-basics",
+      "viewport": "mobile",
+      "screenshot": "screenshots/course-fund-basics-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 504
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "mobile",
+      "screenshot": "screenshots/portfolio-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1841
+    },
+    {
+      "route": "/simulation",
+      "viewport": "mobile",
+      "screenshot": "screenshots/simulation-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 1210
+    },
+    {
+      "route": "/news",
+      "viewport": "mobile",
+      "screenshot": "screenshots/news-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textLength": 673
+    }
+  ],
+  "interactions": [
+    {
+      "name": "coach_send_message",
+      "ok": true,
+      "screenshot": "screenshots/interaction-coach-after-message.png"
+    },
+    {
+      "name": "learning_mark_section",
+      "ok": true,
+      "screenshot": "screenshots/interaction-learning-course.png"
+    },
+    {
+      "name": "portfolio_invalid_submit",
+      "ok": true,
+      "screenshot": "screenshots/interaction-portfolio-field-errors.png"
+    },
+    {
+      "name": "portfolio_valid_submit",
+      "ok": true,
+      "screenshot": "screenshots/interaction-portfolio-valid-submit.png"
+    },
+    {
+      "name": "simulation_start",
+      "ok": true,
+      "screenshot": "screenshots/interaction-simulation-started.png"
+    },
+    {
+      "name": "simulation_submit_action",
+      "ok": true,
+      "screenshot": "screenshots/interaction-simulation-resume-action.png"
+    },
+    {
+      "name": "news_analyze",
+      "ok": true,
+      "screenshot": "screenshots/interaction-news-after-analysis.png"
+    }
+  ],
+  "internalTermFailures": [],
+  "errors": []
+}

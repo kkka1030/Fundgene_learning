@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f9ff;
+        color: #0f172a;
+        font-family: system-ui, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 78% 18%, rgba(0, 113, 227, 0.12), rgba(0, 113, 227, 0) 32%),
+          radial-gradient(circle at 12% 80%, rgba(70, 208, 172, 0.13), rgba(70, 208, 172, 0) 34%),
+          linear-gradient(135deg, #f7fbff 0%, #edf7ff 100%);
+      }
+
+      .grid-noise {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(15, 23, 42, 0.026) 1px, rgba(15, 23, 42, 0) 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.022) 1px, rgba(15, 23, 42, 0) 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at 50% 52%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0) 72%);
+      }
+
+      .card-scene {
+        position: absolute;
+        inset: 0;
+        z-index: 12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 96px;
+      }
+
+      .glass-card {
+        position: relative;
+        display: grid;
+        width: 1460px;
+        min-height: 650px;
+        grid-template-columns: minmax(0, 1fr) 390px;
+        gap: 84px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 44px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow:
+          0 40px 110px rgba(15, 23, 42, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(22px);
+        padding: 78px 86px;
+      }
+
+      .intro .glass-card,
+      .outro .glass-card {
+        grid-template-columns: 1fr;
+      }
+
+      .mark {
+        display: grid;
+        width: 72px;
+        height: 72px;
+        place-items: center;
+        border-radius: 22px;
+        border: 1px solid rgba(0, 113, 227, 0.24);
+        background: #dceeff;
+        color: #0057b8;
+        font-family: monospace;
+        font-size: 24px;
+        font-weight: 800;
+        box-shadow: 0 20px 38px rgba(0, 113, 227, 0.24);
+      }
+
+      .eyebrow {
+        margin: 58px 0 0;
+        color: #64748b;
+        font-size: 23px;
+        font-weight: 520;
+      }
+
+      h1,
+      h2 {
+        margin: 22px 0 0;
+        max-width: 860px;
+        color: #0f172a;
+        font-size: 82px;
+        font-weight: 850;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+      }
+
+      .intro h1,
+      .outro h1 {
+        font-size: 90px;
+      }
+
+      .subtitle {
+        margin-top: 24px;
+        max-width: 760px;
+        color: #334155;
+        font-size: 31px;
+        font-weight: 420;
+        line-height: 1.5;
+      }
+
+      .rule {
+        width: 360px;
+        height: 5px;
+        margin-top: 58px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #0071e3, rgba(0, 113, 227, 0.12));
+      }
+
+      .tagline {
+        margin-top: 28px;
+        color: #64748b;
+        font-size: 22px;
+      }
+
+      .side-steps {
+        align-self: center;
+        display: grid;
+        gap: 16px;
+        padding: 38px;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.52);
+      }
+
+      .step {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        color: #475569;
+        font-size: 28px;
+        font-weight: 760;
+      }
+
+      .step-arrow {
+        color: #0071e3;
+        font-size: 24px;
+        font-weight: 820;
+      }
+
+      .step-line {
+        width: 132px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(0, 113, 227, 0.22);
+      }
+
+      .step:nth-child(2) .step-line {
+        background: rgba(70, 208, 172, 0.23);
+      }
+
+      .step:nth-child(3) .step-line {
+        background: rgba(255, 176, 32, 0.22);
+      }
+
+      .demo-frame {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 3;
+        width: 1628px;
+        height: 1060px;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.42);
+        box-shadow: 0 34px 100px rgba(15, 23, 42, 0.11);
+      }
+
+      .demo-video {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        width: 1588px;
+        height: 1080px;
+        object-fit: contain;
+        transform: translate(-50%, -50%);
+        filter: drop-shadow(0 34px 70px rgba(15, 23, 42, 0.13));
+      }
+
+      .evidence-label {
+        position: absolute;
+        right: 218px;
+        top: 92px;
+        z-index: 9;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 18px;
+        border: 1px solid rgba(0, 113, 227, 0.18);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: #0057b8;
+        font-size: 20px;
+        font-weight: 760;
+        box-shadow: 0 18px 44px rgba(15, 23, 42, 0.11);
+        backdrop-filter: blur(18px);
+      }
+
+      .evidence-label span {
+        color: #475569;
+        font-weight: 560;
+      }
+
+      .question-highlight {
+        position: absolute;
+        left: 50%;
+        top: 118px;
+        z-index: 10;
+        width: 1060px;
+        transform: translateX(-50%);
+        border: 1px solid rgba(0, 113, 227, 0.18);
+        border-radius: 32px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow:
+          0 26px 82px rgba(15, 23, 42, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(20px);
+        padding: 26px 34px 28px;
+      }
+
+      .question-highlight .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #0071e3;
+        font-size: 22px;
+        font-weight: 820;
+      }
+
+      .question-highlight .label::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #46d0ac;
+        box-shadow: 0 0 0 8px rgba(70, 208, 172, 0.14);
+      }
+
+      .question-highlight .text {
+        margin-top: 10px;
+        color: #0f172a;
+        font-size: 34px;
+        font-weight: 680;
+        line-height: 1.36;
+      }
+
+      .return-question {
+        position: absolute;
+        right: 194px;
+        top: 118px;
+        z-index: 10;
+        width: 560px;
+        border: 1px solid rgba(70, 208, 172, 0.22);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 22px 64px rgba(15, 23, 42, 0.12);
+        backdrop-filter: blur(20px);
+        padding: 22px 26px;
+      }
+
+      .return-question .label {
+        color: #00876b;
+        font-size: 19px;
+        font-weight: 820;
+      }
+
+      .return-question .text {
+        margin-top: 8px;
+        color: #0f172a;
+        font-size: 26px;
+        font-weight: 680;
+        line-height: 1.38;
+      }
+
+      .agent-output-card {
+        position: absolute;
+        z-index: 10;
+        width: 610px;
+        border: 1px solid rgba(0, 113, 227, 0.16);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 24px 74px rgba(15, 23, 42, 0.14);
+        backdrop-filter: blur(20px);
+        padding: 24px 28px 26px;
+      }
+
+      .agent-output-card.plan-output {
+        right: 224px;
+        top: 318px;
+      }
+
+      .agent-output-card.why-output {
+        left: 624px;
+        bottom: 92px;
+        width: 820px;
+      }
+
+      .agent-output-card .label {
+        color: #0071e3;
+        font-size: 18px;
+        font-weight: 820;
+      }
+
+      .agent-output-card h3 {
+        margin: 10px 0 0;
+        color: #0f172a;
+        font-size: 28px;
+        line-height: 1.28;
+      }
+
+      .agent-output-card ol {
+        margin: 16px 0 0;
+        padding-left: 28px;
+        color: #334155;
+        font-size: 21px;
+        line-height: 1.55;
+      }
+
+      .agent-output-card .boundary {
+        display: inline-flex;
+        margin-top: 18px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        background: rgba(70, 208, 172, 0.14);
+        color: #007a63;
+        font-size: 17px;
+        font-weight: 740;
+      }
+
+      .safety-answer {
+        align-self: center;
+        display: grid;
+        gap: 18px;
+        padding: 36px;
+        border: 1px solid rgba(0, 113, 227, 0.12);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .safety-answer .answer-title {
+        color: #0071e3;
+        font-size: 22px;
+        font-weight: 840;
+      }
+
+      .safety-answer .answer-text {
+        margin: 0;
+        color: #0f172a;
+        font-size: 29px;
+        font-weight: 720;
+        line-height: 1.38;
+      }
+
+      .safety-answer .answer-boundary {
+        color: #475569;
+        font-size: 20px;
+        line-height: 1.55;
+      }
+
+      .safety-workflow {
+        position: absolute;
+        inset: 0;
+        z-index: 11;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 72px 110px;
+      }
+
+      .safety-workflow-shell {
+        display: grid;
+        width: 1540px;
+        height: 900px;
+        grid-template-columns: 330px minmax(0, 1fr) 360px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow:
+          0 34px 100px rgba(15, 23, 42, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(24px);
+      }
+
+      .safety-workflow .left-rail,
+      .safety-workflow .right-rail {
+        padding: 42px 34px;
+        background: rgba(248, 252, 255, 0.74);
+      }
+
+      .safety-workflow .main-task {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 22px;
+        padding: 42px 48px;
+      }
+
+      .safety-workflow .rail-title,
+      .safety-workflow .panel-title {
+        color: #0071e3;
+        font-size: 18px;
+        font-weight: 840;
+      }
+
+      .safety-workflow .rail-heading {
+        margin-top: 14px;
+        color: #0f172a;
+        font-size: 30px;
+        font-weight: 820;
+        line-height: 1.2;
+      }
+
+      .safety-workflow .rail-copy,
+      .safety-workflow .boundary-copy {
+        margin-top: 10px;
+        color: #64748b;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .safety-workflow .mini-card {
+        margin-top: 24px;
+        padding: 18px;
+        border: 1px solid rgba(0, 113, 227, 0.12);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .safety-workflow .mini-card strong {
+        display: block;
+        color: #0f172a;
+        font-size: 20px;
+        line-height: 1.35;
+      }
+
+      .safety-workflow .mini-card span {
+        display: block;
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .safety-workflow .task-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        padding-bottom: 18px;
+      }
+
+      .safety-workflow .task-header h3 {
+        margin: 0;
+        color: #0f172a;
+        font-size: 34px;
+        line-height: 1.2;
+      }
+
+      .safety-workflow .status-pill {
+        align-self: flex-start;
+        border-radius: 999px;
+        background: rgba(70, 208, 172, 0.16);
+        color: #00876b;
+        font-size: 17px;
+        font-weight: 780;
+        padding: 9px 14px;
+      }
+
+      .safety-workflow .user-bubble {
+        align-self: flex-end;
+        max-width: 620px;
+        border-radius: 28px;
+        background: #0071e3;
+        color: #ffffff;
+        font-size: 24px;
+        line-height: 1.45;
+        padding: 20px 24px;
+        box-shadow: 0 18px 44px rgba(0, 113, 227, 0.24);
+      }
+
+      .safety-workflow .agent-final {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 28px;
+        background: #ffffff;
+        padding: 26px 28px;
+        box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+      }
+
+      .safety-workflow .agent-final h4 {
+        margin: 8px 0 0;
+        color: #0f172a;
+        font-size: 34px;
+        line-height: 1.26;
+      }
+
+      .safety-workflow .agent-final p {
+        margin: 14px 0 0;
+        color: #475569;
+        font-size: 21px;
+        line-height: 1.55;
+      }
+
+      .safety-workflow .action-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .safety-workflow .action-card {
+        min-height: 126px;
+        border: 1px solid rgba(0, 113, 227, 0.13);
+        border-radius: 22px;
+        background: rgba(248, 252, 255, 0.86);
+        padding: 18px;
+      }
+
+      .safety-workflow .action-card b {
+        display: block;
+        color: #0f172a;
+        font-size: 21px;
+        line-height: 1.3;
+      }
+
+      .safety-workflow .action-card span {
+        display: block;
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .safety-workflow .boundary-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .safety-workflow .boundary-item {
+        border: 1px solid rgba(15, 23, 42, 0.07);
+        border-radius: 20px;
+        background: #ffffff;
+        color: #334155;
+        font-size: 18px;
+        font-weight: 720;
+        line-height: 1.35;
+        padding: 16px 18px;
+      }
+    </style>
+  </head>
+  <body>
+      <div
+        id="root"
+        data-composition-id="main"
+      data-start="0"
+      data-duration="69.4"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="grid-noise" data-layout-ignore></div>
+      <div id="demo-frame" class="clip demo-frame" data-start="4.88" data-duration="50.94" data-track-index="8"></div>
+
+      <section id="intro" class="clip card-scene intro" data-start="0" data-duration="3.0" data-track-index="1">
+        <div class="glass-card">
+          <div>
+            <div class="mark">FG</div>
+            <p class="eyebrow">FundGene · Agent Command Center</p>
+            <h1>Agent 接管判断</h1>
+            <p class="subtitle">组合、资讯、训练和资料，不再是散落页面，而是一次可解释、有边界的任务执行。</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="chapter-ask" class="clip card-scene chapter" data-start="2.72" data-duration="2.08" data-track-index="2">
+        <div class="glass-card">
+          <div>
+            <div class="mark">01</div>
+            <p class="eyebrow">Agent first</p>
+            <h2>一句话交给 Agent</h2>
+            <p class="subtitle">把一句真实问题变成任务计划、证据路径和安全边界。</p>
+            <div class="rule"></div>
+            <p class="tagline">Ask → Plan → Evidence</p>
+          </div>
+          <div class="side-steps">
+            <div class="step"><span>问题</span><span class="step-arrow">→</span><div class="step-line"></div></div>
+            <div class="step"><span>计划</span><span class="step-arrow">→</span><div class="step-line"></div></div>
+            <div class="step"><span>证据</span><span class="step-arrow">✓</span><div class="step-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="agent-plan" class="clip demo-video" data-start="4.88" data-duration="4.06" data-media-start="5.0" data-track-index="0" src="assets/07-agent-first-core-loop.mp4" muted playsinline></video>
+      <img id="agent-plan-still" class="clip demo-video" data-start="8.94" data-duration="5.72" data-track-index="0" src="assets/agent-plan-safe-still.jpg" alt="" />
+      <div id="question-highlight" class="clip question-highlight" data-start="5.25" data-duration="3.85" data-track-index="6">
+        <div class="label">用户一句话</div>
+        <div class="text">今天我应该先处理什么？如果有新闻影响，也帮我结合组合解释。</div>
+      </div>
+      <div id="agent-output-plan" class="clip agent-output-card plan-output" data-start="9.15" data-duration="5.25" data-track-index="7">
+        <div class="label">Agent 输出</div>
+        <h3>我会先判断今天最该处理哪件事。</h3>
+        <ol>
+          <li>读取 Today 的今日判断和证据。</li>
+          <li>检查组合集中度，判断新闻是否相关。</li>
+          <li>给安全下一步，不直接变成买卖指令。</li>
+        </ol>
+        <div class="boundary">不连接券商 · 不替你交易</div>
+      </div>
+
+      <section id="chapter-evidence" class="clip card-scene chapter" data-start="14.95" data-duration="1.85" data-track-index="2">
+        <div class="glass-card">
+          <div>
+            <div class="mark">02</div>
+            <p class="eyebrow">Agent calls tools</p>
+            <h2>先看 Today 证据</h2>
+            <p class="subtitle">页面退到幕后，成为 Agent 判断优先级时调用的上下文。</p>
+            <div class="rule"></div>
+            <p class="tagline">Today · News · Portfolio</p>
+          </div>
+          <div class="side-steps">
+            <div class="step"><span>今日判断</span><div class="step-line"></div></div>
+            <div class="step"><span>资讯路径</span><div class="step-line"></div></div>
+            <div class="step"><span>组合暴露</span><div class="step-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="today-evidence" class="clip demo-video" data-start="16.55" data-duration="3.25" data-track-index="0" src="assets/02-today-daily-brief.mp4" muted playsinline></video>
+      <div id="label-today" class="clip evidence-label" data-start="16.78" data-duration="2.7" data-track-index="5">Agent 证据 01 <span>今日判断</span></div>
+
+      <video id="agent-why" class="clip demo-video" data-start="19.8" data-duration="14.15" data-media-start="12.0" data-track-index="0" src="assets/07-agent-first-core-loop.mp4" muted playsinline></video>
+      <div id="return-question" class="clip return-question" data-start="20.28" data-duration="3.45" data-track-index="6">
+        <div class="label">回到 Agent 追问</div>
+        <div class="text">为什么这和我的组合有关？</div>
+      </div>
+      <div id="agent-output-why" class="clip agent-output-card why-output" data-start="24.15" data-duration="8.4" data-track-index="7">
+        <div class="label">Agent 输出</div>
+        <h3>因为你的组合不是平均暴露。</h3>
+        <ol>
+          <li>第一大持仓占比较高，主题新闻会被放大。</li>
+          <li>这条资讯只说明影响路径，不构成操作建议。</li>
+          <li>安全下一步：先看集中度，再做一次回撤训练。</li>
+        </ol>
+      </div>
+
+      <section id="chapter-news" class="clip card-scene chapter" data-start="34.85" data-duration="1.95" data-track-index="2">
+        <div class="glass-card">
+          <div>
+            <div class="mark">03</div>
+            <p class="eyebrow">Personalized impact</p>
+            <h2>解释影响</h2>
+            <p class="subtitle">资讯不再是列表，而是进入个人组合的影响路径。</p>
+            <div class="rule"></div>
+            <p class="tagline">Evidence → Explanation</p>
+          </div>
+          <div class="side-steps">
+            <div class="step"><span>事实</span><div class="step-line"></div></div>
+            <div class="step"><span>影响路径</span><div class="step-line"></div></div>
+            <div class="step"><span>不确定性</span><div class="step-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="news-evidence" class="clip demo-video" data-start="36.65" data-duration="10.8" data-track-index="0" src="assets/04-news-impact.mp4" muted playsinline></video>
+      <div id="label-news" class="clip evidence-label" data-start="36.87" data-duration="10.0" data-track-index="5">Agent 证据 02 <span>资讯影响路径</span></div>
+
+      <section id="chapter-train" class="clip card-scene chapter" data-start="47.15" data-duration="1.95" data-track-index="2">
+        <div class="glass-card">
+          <div>
+            <div class="mark">04</div>
+            <p class="eyebrow">Safe next action</p>
+            <h2>先训练判断</h2>
+            <p class="subtitle">Agent 不让新闻直接变操作，而是推荐一次可复盘的情境训练。</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain → Train</p>
+          </div>
+          <div class="side-steps">
+            <div class="step"><span>做选择</span><div class="step-line"></div></div>
+            <div class="step"><span>写理由</span><div class="step-line"></div></div>
+            <div class="step"><span>生成复盘</span><div class="step-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="training" class="clip demo-video" data-start="48.95" data-duration="6.87" data-track-index="0" src="assets/05-simulation-training.mp4" muted playsinline></video>
+      <div id="label-training" class="clip evidence-label" data-start="49.17" data-duration="6.35" data-track-index="5">Agent 推荐动作 <span>情境训练</span></div>
+
+      <section id="chapter-safety" class="clip card-scene chapter" data-start="55.55" data-duration="1.7" data-track-index="2">
+        <div class="glass-card">
+          <div>
+            <div class="mark">05</div>
+            <p class="eyebrow">Safety boundary</p>
+            <h2>只给安全下一步</h2>
+            <p class="subtitle">新闻不会直接变成买卖指令，训练结果也不会自动改画像。</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain → Train → Boundary</p>
+          </div>
+          <div class="safety-answer">
+            <div class="answer-title">Agent 输出</div>
+            <p class="answer-text">今天先检查组合集中度；如果担心新闻波动，先做回撤训练，而不是马上调整组合。</p>
+            <div class="answer-boundary">FundGene 只做解释、训练建议和风险边界；不承诺收益，不替用户交易。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="safety-workflow" class="clip safety-workflow" data-start="57.25" data-duration="6.7" data-track-index="2">
+        <div class="safety-workflow-shell">
+          <aside class="left-rail">
+            <div class="rail-title">Agent 工作区</div>
+            <div class="rail-heading">任务结束，不是自动操作</div>
+            <div class="rail-copy">Agent 把新闻、组合和训练结果整理成一个安全下一步。</div>
+            <div class="mini-card">
+              <strong>已检查</strong>
+              <span>今日判断、组合集中度、资讯影响路径。</span>
+            </div>
+            <div class="mini-card">
+              <strong>已排除</strong>
+              <span>不把新闻当成买卖指令，不直接改画像。</span>
+            </div>
+          </aside>
+          <main class="main-task">
+            <div class="task-header">
+              <div>
+                <div class="panel-title">最终回答</div>
+                <h3>Agent 给出安全下一步</h3>
+              </div>
+              <div class="status-pill">可执行 · 有边界</div>
+            </div>
+            <div class="user-bubble">那我现在具体做什么？</div>
+            <div class="agent-final">
+              <div class="panel-title">FundGene 教练</div>
+              <h4>今天先检查组合集中度；如果担心新闻波动，先做一次回撤训练，而不是马上调整组合。</h4>
+              <p>这条新闻只说明影响路径，不构成买入、卖出或调仓建议。训练结果可以作为复盘材料，但不会自动写回你的长期画像。</p>
+            </div>
+            <div class="action-grid">
+              <div class="action-card">
+                <b>检查集中度</b>
+                <span>先看第一大持仓和主题暴露是否过高。</span>
+              </div>
+              <div class="action-card">
+                <b>做回撤训练</b>
+                <span>用历史情境练一次不冲动的判断。</span>
+              </div>
+              <div class="action-card">
+                <b>保留待办</b>
+                <span>只保存为下一步，不写回行为画像。</span>
+              </div>
+            </div>
+          </main>
+          <aside class="right-rail">
+            <div class="rail-title">安全边界</div>
+            <div class="rail-heading">FundGene 不替用户交易</div>
+            <div class="boundary-copy">最终回答必须停在解释、训练建议和确认边界内。</div>
+            <div class="boundary-list">
+              <div class="boundary-item">不连接券商账户</div>
+              <div class="boundary-item">不承诺收益</div>
+              <div class="boundary-item">不自动调仓</div>
+              <div class="boundary-item">不自动改画像</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="outro" class="clip card-scene outro" data-start="64.25" data-duration="5.15" data-track-index="1">
+        <div class="glass-card">
+          <div>
+            <div class="mark">FG</div>
+            <p class="eyebrow">FundGene</p>
+            <h1>Explain · Train · Stay Safe</h1>
+            <p class="subtitle">让基金新手先理解，再决策。</p>
+            <div class="rule"></div>
+            <p class="tagline">Agent Command Center for beginner fund investors</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      function enterCard(selector, at, hasSideSteps = true) {
+        tl.from(`${selector} .glass-card`, { opacity: 0, y: 34, scale: 0.985, duration: 0.56, ease: "power3.out" }, at + 0.12);
+        tl.from(`${selector} .mark`, { opacity: 0, scale: 0.74, rotation: -3, duration: 0.38, ease: "back.out(1.5)" }, at + 0.24);
+        tl.from(`${selector} .eyebrow`, { opacity: 0, y: 18, duration: 0.34, ease: "power2.out" }, at + 0.34);
+        tl.from(`${selector} h1, ${selector} h2`, { opacity: 0, y: 42, duration: 0.5, ease: "expo.out" }, at + 0.42);
+        tl.from(`${selector} .subtitle`, { opacity: 0, y: 22, duration: 0.4, ease: "sine.out" }, at + 0.56);
+        tl.from(`${selector} .rule`, { opacity: 0, scaleX: 0.38, transformOrigin: "left center", duration: 0.46, ease: "power2.out" }, at + 0.66);
+        tl.from(`${selector} .tagline`, { opacity: 0, y: 12, duration: 0.34, ease: "power1.out" }, at + 0.76);
+        if (hasSideSteps) {
+          tl.from(`${selector} .side-steps`, { opacity: 0, x: 28, duration: 0.46, ease: "power3.out" }, at + 0.42);
+          tl.from(`${selector} .step`, { opacity: 0, y: 14, duration: 0.32, stagger: 0.07, ease: "power2.out" }, at + 0.56);
+        }
+      }
+
+      enterCard("#intro", 0, false);
+      enterCard("#chapter-ask", 2.72);
+      enterCard("#chapter-evidence", 14.95);
+      enterCard("#chapter-news", 34.85);
+      enterCard("#chapter-train", 47.15);
+      enterCard("#chapter-safety", 55.55, false);
+      enterCard("#outro", 64.25, false);
+
+      [
+        ["#agent-plan", 4.88],
+        ["#agent-plan-still", 8.94],
+        ["#today-evidence", 16.55],
+        ["#agent-why", 19.8],
+        ["#news-evidence", 36.65],
+        ["#training", 48.95],
+      ].forEach(([selector, start]) => {
+        tl.from(selector, { opacity: 0, scale: 0.996, duration: 0.24, ease: "power2.out" }, start);
+      });
+
+      tl.from("#question-highlight", { opacity: 0, y: -14, scale: 0.985, duration: 0.36, ease: "power2.out" }, 5.25);
+      tl.to("#question-highlight", { opacity: 0, y: -10, duration: 0.28, ease: "power1.in" }, 8.9);
+      tl.set("#question-highlight", { opacity: 0 }, 9.15);
+      tl.from("#agent-output-plan", { opacity: 0, x: 22, scale: 0.985, duration: 0.38, ease: "power2.out" }, 9.2);
+      tl.to("#agent-output-plan", { opacity: 0, x: 14, duration: 0.28, ease: "power1.in" }, 14.08);
+      tl.from("#return-question", { opacity: 0, y: -12, scale: 0.985, duration: 0.36, ease: "power2.out" }, 20.28);
+      tl.to("#return-question", { opacity: 0, y: -8, duration: 0.28, ease: "power1.in" }, 23.45);
+      tl.from("#agent-output-why", { opacity: 0, y: 20, scale: 0.985, duration: 0.38, ease: "power2.out" }, 24.15);
+      tl.to("#agent-output-why", { opacity: 0, y: 14, duration: 0.3, ease: "power1.in" }, 32.2);
+      tl.from("#label-today", { opacity: 0, y: -12, duration: 0.36, ease: "power2.out" }, 16.78);
+      tl.from("#label-news", { opacity: 0, y: -12, duration: 0.36, ease: "power2.out" }, 36.87);
+      tl.from("#label-training", { opacity: 0, y: -12, duration: 0.36, ease: "power2.out" }, 49.17);
+      tl.from("#safety-workflow .safety-workflow-shell", { opacity: 0, y: 28, scale: 0.988, duration: 0.52, ease: "power3.out" }, 57.32);
+      tl.from("#safety-workflow .left-rail, #safety-workflow .right-rail", { opacity: 0, y: 16, duration: 0.4, stagger: 0.06, ease: "power2.out" }, 57.62);
+      tl.from("#safety-workflow .task-header", { opacity: 0, y: 18, duration: 0.36, ease: "power2.out" }, 57.76);
+      tl.from("#safety-workflow .user-bubble", { opacity: 0, y: 18, scale: 0.985, duration: 0.36, ease: "power2.out" }, 58.22);
+      tl.from("#safety-workflow .agent-final", { opacity: 0, y: 20, scale: 0.988, duration: 0.42, ease: "power2.out" }, 58.72);
+      tl.from("#safety-workflow .action-card", { opacity: 0, y: 16, duration: 0.32, stagger: 0.07, ease: "power2.out" }, 59.52);
+      tl.from("#safety-workflow .boundary-item", { opacity: 0, x: 16, duration: 0.28, stagger: 0.05, ease: "power2.out" }, 59.75);
+      tl.from("#demo-frame", { opacity: 0, scale: 0.985, duration: 0.34, ease: "power2.out" }, 4.88);
+      tl.to("#outro .glass-card", { opacity: 0, y: -20, duration: 0.55, ease: "power2.in" }, 68.72);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,330 @@
+{
+  "meta": {
+    "base": "http://127.0.0.1:3000",
+    "createdAt": "2026-05-16T04:56:43.889Z"
+  },
+  "auth": {
+    "publicOverviewVisible": true,
+    "unauthDashboardText": "需要登录 工作区需要先登录 登录后才能读取画像、问卷、学习进度和训练记录。 去登录 / 注册 回到总览",
+    "afterLoginUrl": "http://127.0.0.1:3000/dashboard",
+    "afterLoginText": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 状态 工作台 风险、学习、组合与训练状态 正在同步工作台、用户信息和行为画像..."
+  },
+  "routeScreens": [
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "screenshot": "screenshots/overview-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 起点 总览 产品脉络与主路径 基金判断训练台 FundGene 工作总控 画像、教练、学习、组合体检、历史训练和资讯解读都从这里进入。默认顺序是先理解风险，再做可复盘的判断训练。 进入工作台 查看组合体检 今日主线 01 补齐基础画像和风险问卷。 02 查看工作台的下一步动作。 03 用组合体检或教练问答完成一次复盘。 主路径 建档 -> 工作台 先建立风险基线，再进入教练、学习和体检。 产品边界 不做交易 只做学习、判断支持和复盘训练。 记录方式 可回看 问答、报告、训练和解读都保留结构化记录。 核心模块矩阵 主线入口与训练模块 建档和工作台是主线入口；教练、学习、组合、情境和资讯负责把每一次判断变成可解释记录。 风险基线 建档 01 完成资料与风险问卷，建立个人风险基线。 主线 必做 状态汇总 工作台 02 收束风险、学习、组合和训练的下一步动作。 主线 常驻 解释问答 教练 03 把问题变成可追踪、可引用的结构化回答。 主线 可用 课程路径 学习 04 补齐基金、风险和配置的基础语言。 支撑 可用 持仓体检 组合 05 录入快照，读取集中度、暴露和行动建议。 主线 可用 历史训练 情境 06 在历史节点提交动作，并生成行为复盘。 训练 可用 事实解读 资讯 07 把政策和新闻拆成事实、路径与不确定性。 支撑 可用 运行边界 每个建议都必须能解释、能回看、能停止。 新手优先：默认服务第一次认真做基金决策的人。 解释优先：先拆风险、证据和限制，再给下一步。 边界优先：不承诺收益，不生成交易执行动作。 建议顺序 第一次使用先完成建档；已有画像后进入工作台，根据下一步动作选择教练、组合或训练。"
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "screenshot": "screenshots/overview-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 起点 总览 产品脉络与主路径 基金判断训练台 FundGene 工作总控 画像、教练、学习、组合体检、历史训练和资讯解读都从这里进入。默认顺序是先理解风险，再做可复盘的判断训练。 进入工作台 查看组合体检 今日主线 01 补齐基础画像和风险问卷。 02 查看工作台的下一步动作。 03 用组合体检或教练问答完成一次复盘。 主路径 建档 -> 工作台 先建立风险基线，再进入教练、学习和体检。 产品边界 不做交易 只做学习、判断支持和复盘训练。 记录方式 可回看 问答、报告、训练和解读都保留结构化记录。 核心模块矩阵 主线入口与训练模块 建档和工作台是主线入口；教练、学习、组合、情境和资讯负责把每一次判断变成可解释记录。 风险基线 建档 01 完成资料与风险问卷，建立个人风险基线。 主线 必做 状态汇总 工作台 02 收束风险、学习、组合和训练的下一步动作。 主线 常驻 解释问答 教练 03 把问题变成可追踪、可引用的结构化回答。 主线 可用 课程路径 学习 04 补齐基金、风险和配置的基础语言。 支撑 可用 持仓体检 组合 05 录入快照，读取集中度、暴露和行动建议。 主线 可用 历史训练 情境 06 在历史节点提交动作，并生成行为复盘。 训练 可用 事实解读 资讯 07 把政策和新闻拆成事实、路径与不确定性。 支撑 可用 运行边界 每个建议都必须能解释、能回看、能停止。 新手优先：默认服务第一次认真做基金决策的人。 解释优先：先拆风险、证据和限制，再给下一步。 边界优先：不承诺收益，不生成交易执行动作。 建议顺序 第一次使用先完成建档；已有画像后进入工作台，根据下一步动作选择教练、组合或训练。"
+    },
+    {
+      "route": "/start",
+      "viewport": "desktop",
+      "screenshot": "screenshots/start-desktop.png",
+      "overflow": false,
+      "internalTerms": [
+        "Advisor orchestrator",
+        "agent",
+        "Agent",
+        "AGENT ROUTE",
+        "LATEST EVIDENCE"
+      ],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 状态 工作台 风险、学习、组合与训练状态 Advisor orchestrator 进取 今天先处理一件事：回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 FundGene Demo 的画像、学习、组合、情境和资讯状态会被 agent 统一读取；工作台只保留行动优先级和证据入口。 执行下一步 进入 Agent 教练 Learning 0% 推荐继续：《基金基础》。 Portfolio ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 Coach 待提问 完成第一条 coach 问答后，这里会显示最近主题和指导焦点。 USER STATE 当前判断基线 风险等级 进取 来自问卷和行为画像，只用于解释风险承受与训练方向。 行为焦点 performance_chasing_risk 当前观测到：performance_chasing_risk。 下一步 4 条 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 AGENT ROUTE 今日任务流 学习路径 0/3 推荐继续：《基金基础》。 学习 组合体检 ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 体检 情境训练 0 次 建议进入「追热点克制训练」。 训练 资讯解读 已有解读 把这条政策先翻译成一句新手能执行的话：它提醒你关注“长期资金入市政策继续推进”背后的风险来源，但下一步应该先核对自己的基金"
+    },
+    {
+      "route": "/start",
+      "viewport": "mobile",
+      "screenshot": "screenshots/start-mobile.png",
+      "overflow": false,
+      "internalTerms": [
+        "Advisor orchestrator",
+        "agent",
+        "Agent",
+        "AGENT ROUTE",
+        "LATEST EVIDENCE"
+      ],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 状态 工作台 风险、学习、组合与训练状态 Advisor orchestrator 进取 今天先处理一件事：回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 FundGene Demo 的画像、学习、组合、情境和资讯状态会被 agent 统一读取；工作台只保留行动优先级和证据入口。 执行下一步 进入 Agent 教练 Learning 0% 推荐继续：《基金基础》。 Portfolio ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 Coach 待提问 完成第一条 coach 问答后，这里会显示最近主题和指导焦点。 USER STATE 当前判断基线 风险等级 进取 来自问卷和行为画像，只用于解释风险承受与训练方向。 行为焦点 performance_chasing_risk 当前观测到：performance_chasing_risk。 下一步 4 条 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 AGENT ROUTE 今日任务流 学习路径 0/3 推荐继续：《基金基础》。 学习 组合体检 ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 体检 情境训练 0 次 建议进入「追热点克制训练」。 训练 资讯解读 已有解读 把这条政策先翻译成一句新手能执行的话：它提醒你关注“长期资金入市政策继续推进”背后的风险来源，但下一步应该先核对自己的基金类型、持有期限和组合暴露，而不"
+    },
+    {
+      "route": "/dashboard",
+      "viewport": "desktop",
+      "screenshot": "screenshots/dashboard-desktop.png",
+      "overflow": false,
+      "internalTerms": [
+        "Advisor orchestrator",
+        "agent",
+        "Agent",
+        "AGENT ROUTE",
+        "LATEST EVIDENCE"
+      ],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 状态 工作台 风险、学习、组合与训练状态 Advisor orchestrator 进取 今天先处理一件事：回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 FundGene Demo 的画像、学习、组合、情境和资讯状态会被 agent 统一读取；工作台只保留行动优先级和证据入口。 执行下一步 进入 Agent 教练 Learning 0% 推荐继续：《基金基础》。 Portfolio ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 Coach 待提问 完成第一条 coach 问答后，这里会显示最近主题和指导焦点。 USER STATE 当前判断基线 风险等级 进取 来自问卷和行为画像，只用于解释风险承受与训练方向。 行为焦点 performance_chasing_risk 当前观测到：performance_chasing_risk。 下一步 4 条 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 AGENT ROUTE 今日任务流 学习路径 0/3 推荐继续：《基金基础》。 学习 组合体检 ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 体检 情境训练 0 次 建议进入「追热点克制训练」。 训练 资讯解读 已有解读 把这条政策先翻译成一句新手能执行的话：它提醒你关注“长期资金入市政策继续推进”背后的风险来源，但下一步应该先核对自己的基金"
+    },
+    {
+      "route": "/dashboard",
+      "viewport": "mobile",
+      "screenshot": "screenshots/dashboard-mobile.png",
+      "overflow": false,
+      "internalTerms": [
+        "Advisor orchestrator",
+        "agent",
+        "Agent",
+        "AGENT ROUTE",
+        "LATEST EVIDENCE"
+      ],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 状态 工作台 风险、学习、组合与训练状态 Advisor orchestrator 进取 今天先处理一件事：回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 FundGene Demo 的画像、学习、组合、情境和资讯状态会被 agent 统一读取；工作台只保留行动优先级和证据入口。 执行下一步 进入 Agent 教练 Learning 0% 推荐继续：《基金基础》。 Portfolio ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 Coach 待提问 完成第一条 coach 问答后，这里会显示最近主题和指导焦点。 USER STATE 当前判断基线 风险等级 进取 来自问卷和行为画像，只用于解释风险承受与训练方向。 行为焦点 performance_chasing_risk 当前观测到：performance_chasing_risk。 下一步 4 条 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 AGENT ROUTE 今日任务流 学习路径 0/3 推荐继续：《基金基础》。 学习 组合体检 ¥52,000 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 体检 情境训练 0 次 建议进入「追热点克制训练」。 训练 资讯解读 已有解读 把这条政策先翻译成一句新手能执行的话：它提醒你关注“长期资金入市政策继续推进”背后的风险来源，但下一步应该先核对自己的基金类型、持有期限和组合暴露，而不"
+    },
+    {
+      "route": "/onboarding",
+      "viewport": "desktop",
+      "screenshot": "screenshots/onboarding-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 画像 建档 画像与风险基线 建档 先建立可解释的用户画像，再进入日常工作台决策流。 基础资料和风险问卷会决定工作台、教练和训练的初始方向。 建档进度 30% 先保存基础画像 基础画像 3/4 项就绪 风险问卷 0/6 题完成 写回状态 等待提交 你当前已在登录会话内。基础画像和问卷会影响工作台与后续教练解释。 第 1 步 建立基础画像 3/4 项就绪 这一步会写入基础用户信息，作为工作台和后续推荐的上下文。 称呼 投资经验 刚开始了解基金 已经定投，但还没形成稳定策略 有一些配置经验，想把方法做稳 每月可投入金额 3000 元以内 3000 - 10000 元 10000 元以上 当前最重要的目标 保存基础画像 先看工作台 第 2 步 风险与行为问卷 0/6 题完成 问卷完成后，工作台会展示风险等级、行为偏差提示和下一步动作。 Q1 待答 Q2 待答 Q3 待答 Q4 待答 Q5 待答 Q6 待答 Q1. 面对基金净值波动时，你的舒适度更接近哪一档？ 稍有波动就会不安，希望尽快回到稳定状态 能接受小幅波动，但不希望净值起伏太大 中等波动可以接受，只要长期逻辑还在 较大波动也能承受，愿意换取更高长期收益 波动不是问题，更在意长期回报空间 Q2. 如果持仓一个月回撤 12%，你最可能的动作是？ 立刻卖出，先止损再说 减仓一部分，先把波动降下来 先停下来复盘，再决定要不要调整 维持计划，不因为单月回撤改策略 如果逻辑没变，甚至会考虑逢低补一点 Q3. 你打算给这笔基金投资多长的观察周期？ 不到一年，主要先试试水 一到两年，看情况再说 两到三年，愿意做阶段性复盘 三到五年，按周期看策略执行 五年以上，用长期视角看复利 Q4. 市场连续下跌时，你有多容易冒出“先卖掉再说”的念头？ 几乎不会，我通常先看计划 偶尔会，但能很快压住 会犹豫，需要再看看 经常会，情绪影响比较明显 非常强烈，通常很难不动手 Q5. 看到朋友讨论热门基金或短期"
+    },
+    {
+      "route": "/onboarding",
+      "viewport": "mobile",
+      "screenshot": "screenshots/onboarding-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 画像 建档 画像与风险基线 建档 先建立可解释的用户画像，再进入日常工作台决策流。 基础资料和风险问卷会决定工作台、教练和训练的初始方向。 建档进度 30% 先保存基础画像 基础画像 3/4 项就绪 风险问卷 0/6 题完成 写回状态 等待提交 你当前已在登录会话内。基础画像和问卷会影响工作台与后续教练解释。 第 1 步 建立基础画像 3/4 项就绪 这一步会写入基础用户信息，作为工作台和后续推荐的上下文。 称呼 投资经验 刚开始了解基金 已经定投，但还没形成稳定策略 有一些配置经验，想把方法做稳 每月可投入金额 3000 元以内 3000 - 10000 元 10000 元以上 当前最重要的目标 保存基础画像 先看工作台 第 2 步 风险与行为问卷 0/6 题完成 问卷完成后，工作台会展示风险等级、行为偏差提示和下一步动作。 Q1 待答 Q2 待答 Q3 待答 Q4 待答 Q5 待答 Q6 待答 Q1. 面对基金净值波动时，你的舒适度更接近哪一档？ 稍有波动就会不安，希望尽快回到稳定状态 能接受小幅波动，但不希望净值起伏太大 中等波动可以接受，只要长期逻辑还在 较大波动也能承受，愿意换取更高长期收益 波动不是问题，更在意长期回报空间 Q2. 如果持仓一个月回撤 12%，你最可能的动作是？ 立刻卖出，先止损再说 减仓一部分，先把波动降下来 先停下来复盘，再决定要不要调整 维持计划，不因为单月回撤改策略 如果逻辑没变，甚至会考虑逢低补一点 Q3. 你打算给这笔基金投资多长的观察周期？ 不到一年，主要先试试水 一到两年，看情况再说 两到三年，愿意做阶段性复盘 三到五年，按周期看策略执行 五年以上，用长期视角看复利 Q4. 市场连续下跌时，你有多容易冒出“先卖掉再说”的念头？ 几乎不会，我通常先看计划 偶尔会，但能很快压住 会犹豫，需要再看看 经常会，情绪影响比较明显 非常强烈，通常很难不动手 Q5. 看到朋友讨论热门基金或短期高收益榜单时，你有多想跟进？ "
+    },
+    {
+      "route": "/coach",
+      "viewport": "desktop",
+      "screenshot": "screenshots/coach-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 问答 教练 解释型问答与下一步 对话优先 进取 先把问题问清楚，再给出边界和下一步。 还没有历史回答，先从一个具体问题开始。 今天想先问清楚什么？ 我刚开始买基金，怎么理解风险等级和回撤？ 如果我总想追涨，FundGene 应该怎么帮我拆解这个问题？ 我该怎么判断自己现在的基金配置是不是太集中？ 今天最想问清楚什么？ 发送 清空 回答会自动保留风险边界，并把建议转成下一步动作。 当前画像 当前上下文 用户 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 风险 进取 行为 追涨倾向 下一步队列 把回答变成动作 1. 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 2. 进入 Simulation，优先完成“追热点克制训练”方向的情境训练。 3. 进入 Learning，先完成《基金基础》这门课。 4. 进入 Portfolio，查看最近一份组合体检报告。"
+    },
+    {
+      "route": "/coach",
+      "viewport": "mobile",
+      "screenshot": "screenshots/coach-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 问答 教练 解释型问答与下一步 对话优先 进取 先把问题问清楚，再给出边界和下一步。 还没有历史回答，先从一个具体问题开始。 今天想先问清楚什么？ 我刚开始买基金，怎么理解风险等级和回撤？ 如果我总想追涨，FundGene 应该怎么帮我拆解这个问题？ 我该怎么判断自己现在的基金配置是不是太集中？ 今天最想问清楚什么？ 发送 清空 回答会自动保留风险边界，并把建议转成下一步动作。 当前画像 当前上下文 用户 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 风险 进取 行为 追涨倾向 下一步队列 把回答变成动作 1. 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 2. 进入 Simulation，优先完成“追热点克制训练”方向的情境训练。 3. 进入 Learning，先完成《基金基础》这门课。 4. 进入 Portfolio，查看最近一份组合体检报告。"
+    },
+    {
+      "route": "/learning",
+      "viewport": "desktop",
+      "screenshot": "screenshots/learning-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 课程 学习 课程路径与进度 学习中心 先把基金判断语言补齐，再回到组合和教练里练。 课程进度会回流到工作台，影响下一步动作和 Coach 的解释顺序。 主路径 Beginner Core Path 先用三门基础课建立基金共同语言，再把风险理解、配置原则和平台内下一步动作连成可执行学习路径。 总进度 0% 按小节完成度聚合。 已完成课程 0/3 完成一节就推进一次路径。 推荐下一门 基金基础 当前推荐会同步影响工作台的下一步动作。 课程目录 三门基础课先撑住新手的决策语言。 先学懂你为什么会犹豫、为什么会追热点、为什么一只基金不能代表一个组合，再回到教练和组合工作区练习。 待开始 基金基础 24 min 建立基金、净值、波动和长期持有的共同语言。 先看懂基金买了什么、净值为什么会波动，以及长期持有和短期情绪反应的差别。 0/3 sections 0% 下一节：基金到底持有什么 待开始 风险与回撤 30 min 理解风险等级、波动容忍和下跌中的行为偏差。 把风险等级和回撤拆开解释，再连接到用户自己的承受能力和行为反应。 0/3 sections 0% 下一节：风险等级不是收益承诺 待开始 配置原则 28 min 从单只基金视角转向组合结构和资产分布。 开始建立组合意识，理解分散配置、主题暴露和长期配置纪律。 0/3 sections 0% 下一节：为什么不能只盯一只热门基金"
+    },
+    {
+      "route": "/learning",
+      "viewport": "mobile",
+      "screenshot": "screenshots/learning-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 课程 学习 课程路径与进度 学习中心 先把基金判断语言补齐，再回到组合和教练里练。 课程进度会回流到工作台，影响下一步动作和 Coach 的解释顺序。 主路径 Beginner Core Path 先用三门基础课建立基金共同语言，再把风险理解、配置原则和平台内下一步动作连成可执行学习路径。 总进度 0% 按小节完成度聚合。 已完成课程 0/3 完成一节就推进一次路径。 推荐下一门 基金基础 当前推荐会同步影响工作台的下一步动作。 课程目录 三门基础课先撑住新手的决策语言。 先学懂你为什么会犹豫、为什么会追热点、为什么一只基金不能代表一个组合，再回到教练和组合工作区练习。 待开始 基金基础 24 min 建立基金、净值、波动和长期持有的共同语言。 先看懂基金买了什么、净值为什么会波动，以及长期持有和短期情绪反应的差别。 0/3 sections 0% 下一节：基金到底持有什么 待开始 风险与回撤 30 min 理解风险等级、波动容忍和下跌中的行为偏差。 把风险等级和回撤拆开解释，再连接到用户自己的承受能力和行为反应。 0/3 sections 0% 下一节：风险等级不是收益承诺 待开始 配置原则 28 min 从单只基金视角转向组合结构和资产分布。 开始建立组合意识，理解分散配置、主题暴露和长期配置纪律。 0/3 sections 0% 下一节：为什么不能只盯一只热门基金"
+    },
+    {
+      "route": "/learning/fund-basics",
+      "viewport": "desktop",
+      "screenshot": "screenshots/course-fund-basics-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 课程 学习 课程路径与进度 Beginner Core Path 基金基础 先看懂基金买了什么、净值为什么会波动，以及长期持有和短期情绪反应的差别。 课程状态 待开始 建立基金、净值、波动和长期持有的共同语言。 课程进度 0% 0/3 sections completed 预计时长 24 min 先用可完成的小节推进，而不是堆叠大而空的内容。 下一节 基金到底持有什么 完成当前课后，工作台的学习动作也会一起刷新。 Sections 逐节完成，逐节回写。 每个小节完成后，学习中心和工作台会一起更新。 SECTION 01 基金到底持有什么 先区分基金和单一股票，理解基金是在帮你持有一篮子资产。 8 min 待完成 标记为已完成 SECTION 02 净值和波动怎么看 把净值波动理解成持仓资产变化的结果，而不是简单的好坏信号。 8 min 待完成 标记为已完成 SECTION 03 长期持有为什么重要 建立周期视角，避免把短期涨跌误解成策略本身失效。 8 min 待完成 标记为已完成 返回学习中心 去看工作台更新"
+    },
+    {
+      "route": "/learning/fund-basics",
+      "viewport": "mobile",
+      "screenshot": "screenshots/course-fund-basics-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 课程 学习 课程路径与进度 Beginner Core Path 基金基础 先看懂基金买了什么、净值为什么会波动，以及长期持有和短期情绪反应的差别。 课程状态 待开始 建立基金、净值、波动和长期持有的共同语言。 课程进度 0% 0/3 sections completed 预计时长 24 min 先用可完成的小节推进，而不是堆叠大而空的内容。 下一节 基金到底持有什么 完成当前课后，工作台的学习动作也会一起刷新。 Sections 逐节完成，逐节回写。 每个小节完成后，学习中心和工作台会一起更新。 SECTION 01 基金到底持有什么 先区分基金和单一股票，理解基金是在帮你持有一篮子资产。 8 min 待完成 标记为已完成 SECTION 02 净值和波动怎么看 把净值波动理解成持仓资产变化的结果，而不是简单的好坏信号。 8 min 待完成 标记为已完成 SECTION 03 长期持有为什么重要 建立周期视角，避免把短期涨跌误解成策略本身失效。 8 min 待完成 标记为已完成 返回学习中心 去看工作台更新"
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "desktop",
+      "screenshot": "screenshots/portfolio-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 体检 组合 持仓分析与报告 组合分析 先解释持仓结构，再讨论配置原则。 手动录入快照后，系统会生成结构化报告，并在工作台和教练中继续引用。 最近报告 已生成 每次提交都会生成一份新的持仓快照和分析记录。 最近估值 ¥52,000 总资产按现金加持仓快照估算，不接实时行情。 最近快照 2026/5/16 后续教练会优先参考最近一份组合报告。 历史记录 1 份 每次录入都保留历史，不用最新状态覆盖一切。 Manual snapshot 录入第一份或下一份持仓快照。 这里记录组合状态，不生成交易指令。 快照日期 现金金额 HOLDING 01 删除 基金代码 基金名称 基金类型 权益基金 混合基金 债券基金 货币基金 海外 / QDII 商品 / 黄金 持仓金额 添加一行持仓 生成组合报告 Latest report 最近一份组合体检报告 报告分为配置分布、持仓权重、风险暴露和下一步动作。 SNAPSHOT 2026/5/16 待继续观察 报告生成 2026/5/16 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 待继续观察 TOTAL ¥52,000 CASH 11.5% TOP HOLDING 34.6% 权益基金 34.6% 债券基金 30.8% 海外 / QDII 23.1% 现金 11.5% RISK EXPOSURE 1 组合里既有成长暴露，也保留了一定缓冲，整体更接近平衡型风险暴露。 2 现金占比处于可控区间，组合主要风险来自已持有基金而不是大量闲置现金。 CONCENTRATION FLAGS 1 当前至少有一只基金权重超过 25%，建议优先检查是否承担了过多单一主题风险。 ALLOCATION BALANCE 1 组合已经覆盖多个类型，但仍要继续检查这些基金是否"
+    },
+    {
+      "route": "/portfolio",
+      "viewport": "mobile",
+      "screenshot": "screenshots/portfolio-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 体检 组合 持仓分析与报告 组合分析 先解释持仓结构，再讨论配置原则。 手动录入快照后，系统会生成结构化报告，并在工作台和教练中继续引用。 最近报告 已生成 每次提交都会生成一份新的持仓快照和分析记录。 最近估值 ¥52,000 总资产按现金加持仓快照估算，不接实时行情。 最近快照 2026/5/16 后续教练会优先参考最近一份组合报告。 历史记录 1 份 每次录入都保留历史，不用最新状态覆盖一切。 Manual snapshot 录入第一份或下一份持仓快照。 这里记录组合状态，不生成交易指令。 快照日期 现金金额 HOLDING 01 删除 基金代码 基金名称 基金类型 权益基金 混合基金 债券基金 货币基金 海外 / QDII 商品 / 黄金 持仓金额 添加一行持仓 生成组合报告 Latest report 最近一份组合体检报告 报告分为配置分布、持仓权重、风险暴露和下一步动作。 SNAPSHOT 2026/5/16 待继续观察 报告生成 2026/5/16 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 待继续观察 TOTAL ¥52,000 CASH 11.5% TOP HOLDING 34.6% 权益基金 34.6% 债券基金 30.8% 海外 / QDII 23.1% 现金 11.5% RISK EXPOSURE 1 组合里既有成长暴露，也保留了一定缓冲，整体更接近平衡型风险暴露。 2 现金占比处于可控区间，组合主要风险来自已持有基金而不是大量闲置现金。 CONCENTRATION FLAGS 1 当前至少有一只基金权重超过 25%，建议优先检查是否承担了过多单一主题风险。 ALLOCATION BALANCE 1 组合已经覆盖多个类型，但仍要继续检查这些基金是否承担了重复主题暴露。 2 组合"
+    },
+    {
+      "route": "/simulation",
+      "viewport": "desktop",
+      "screenshot": "screenshots/simulation-desktop.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 训练 情境 历史训练与复盘 历史情境训练 把“市场一震就想动手”的瞬间，变成一份可追溯的决策日志。 挑选历史场景，在关键节点写下动作和理由，再用结构化复盘看清自己的纪律与偏差。 这里不模拟交易执行，只训练判断过程。 风险等级：进取 当前偏差焦点：performance_chasing_risk 可选场景 2 个 01 挑选场景 先理解背景，不让训练变成无上下文点按钮。 02 写下理由 动作之前先写判断依据，留下以后能复盘的证据。 03 接收反馈 每一步读取反馈，不把行为偏差藏在结果后面。 04 生成复盘 最后回看强项、盲点和下周训练动作。 行为焦点 performance_chasing_risk 训练优先围绕你最容易被情绪推着走的那一类场景展开。 推荐场景 热门赛道狂热期的追涨冲动 当前会优先高亮推荐场景，但仍允许你主动切换。 训练状态 未开始 启动第一个情境后，这里会显示训练状态。 训练链路 4 步 选场景、启动训练、提交动作、生成复盘。 场景目录 先从场景池里挑一个值得练的历史节点。 左侧是可用情境；选择后，右侧会展开背景、训练目标和时间线预览。 历史训练 疫情冲击下的回撤纪律 1 在连续大跌、情绪失控和初步反弹中，练习如何把恐慌和长期计划拆开。 panic_selling_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 历史训练 推荐 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 performance_chasing_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 Scenario dossier 热门赛道狂热期的追涨冲动 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 历史训练 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 TRAININ"
+    },
+    {
+      "route": "/simulation",
+      "viewport": "mobile",
+      "screenshot": "screenshots/simulation-mobile.png",
+      "overflow": false,
+      "internalTerms": [],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 训练 情境 历史训练与复盘 历史情境训练 把“市场一震就想动手”的瞬间，变成一份可追溯的决策日志。 挑选历史场景，在关键节点写下动作和理由，再用结构化复盘看清自己的纪律与偏差。 这里不模拟交易执行，只训练判断过程。 风险等级：进取 当前偏差焦点：performance_chasing_risk 可选场景 2 个 01 挑选场景 先理解背景，不让训练变成无上下文点按钮。 02 写下理由 动作之前先写判断依据，留下以后能复盘的证据。 03 接收反馈 每一步读取反馈，不把行为偏差藏在结果后面。 04 生成复盘 最后回看强项、盲点和下周训练动作。 行为焦点 performance_chasing_risk 训练优先围绕你最容易被情绪推着走的那一类场景展开。 推荐场景 热门赛道狂热期的追涨冲动 当前会优先高亮推荐场景，但仍允许你主动切换。 训练状态 未开始 启动第一个情境后，这里会显示训练状态。 训练链路 4 步 选场景、启动训练、提交动作、生成复盘。 场景目录 先从场景池里挑一个值得练的历史节点。 左侧是可用情境；选择后，右侧会展开背景、训练目标和时间线预览。 历史训练 疫情冲击下的回撤纪律 1 在连续大跌、情绪失控和初步反弹中，练习如何把恐慌和长期计划拆开。 panic_selling_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 历史训练 推荐 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 performance_chasing_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 Scenario dossier 热门赛道狂热期的追涨冲动 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 历史训练 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 TRAINING OBJECTIVE 在波动"
+    },
+    {
+      "route": "/news",
+      "viewport": "desktop",
+      "screenshot": "screenshots/news-desktop.png",
+      "overflow": false,
+      "internalTerms": [
+        "Agent"
+      ],
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 解读 资讯 事实、路径与不确定性 资讯解读 把新闻标题里的情绪噪音，拆成事实、路径和不确定性。 每条资讯都先拆事实，再拆影响路径和不确定性；这里不会把新闻标题翻译成交易指令。 资讯源 已同步 资讯源不可用时，仍可使用手动解读。 资讯数量 20 条 同时兼容资讯条目与政策条目两类列表。 解释原则 不追热点 只做事实解读和影响路径，不输出追热点买卖建议。 用户上下文 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 资讯台 选择一条资讯，生成结构化 readout。 优先看事实和影响路径，再决定是否回到学习、组合或教练继续追问。 POLICY SEC Charges 21 Individuals With Alleged Wide-Reaching Insider Trading Scheme 5/6 23:24 The Securities and Exchange Commission today charged 21 individuals for their alleged involvement in a decade-long insider trading scheme that used information misappropriated from multiple global law firms and resulted in millions of dollars in illicit… Press Releases 政策影响路径 生成解读 查看来源 POLICY SEC Divisions of Investment Management and Corporation Finance Issue Staff Guidance Supporting Retirement Plans for Small Businesses 5/5 20:23 Staff in the Sec"
+    },
+    {
+      "route": "/news",
+      "viewport": "mobile",
+      "screenshot": "screenshots/news-mobile.png",
+      "overflow": false,
+      "internalTerms": [
+        "Agent"
+      ],
+      "textSample": "FundGene Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 解读 资讯 事实、路径与不确定性 资讯解读 把新闻标题里的情绪噪音，拆成事实、路径和不确定性。 每条资讯都先拆事实，再拆影响路径和不确定性；这里不会把新闻标题翻译成交易指令。 资讯源 已同步 资讯源不可用时，仍可使用手动解读。 资讯数量 20 条 同时兼容资讯条目与政策条目两类列表。 解释原则 不追热点 只做事实解读和影响路径，不输出追热点买卖建议。 用户上下文 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 资讯台 选择一条资讯，生成结构化 readout。 优先看事实和影响路径，再决定是否回到学习、组合或教练继续追问。 POLICY SEC Charges 21 Individuals With Alleged Wide-Reaching Insider Trading Scheme 5/6 23:24 The Securities and Exchange Commission today charged 21 individuals for their alleged involvement in a decade-long insider trading scheme that used information misappropriated from multiple global law firms and resulted in millions of dollars in illicit… Press Releases 政策影响路径 生成解读 查看来源 POLICY SEC Divisions of Investment Management and Corporation Finance Issue Staff Guidance Supporting Retirement Plans for Small Businesses 5/5 20:23 Staff in the Securities and Exc"
+    }
+  ],
+  "interactions": [
+    {
+      "name": "coach_send_message",
+      "ok": false,
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 问答 教练 解释型问答与下一步 对话优先 进取 先把问题问清楚，再给出边界和下一步。 还没有历史回答，先从一个具体问题开始。 今天想先问清楚什么？ 我刚开始买基金，怎么理解风险等级和回撤？ 如果我总想追涨，FundGene 应该怎么帮我拆解这个问题？ 我该怎么判断自己现在的基金配置是不是太集中？ 今天最想问清楚什么？ 生成中 清空 回答会自动保留风险边界，并把建议转成下一步动作。 当前画像 当前上下文 用户 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 风险 进取 行为 追涨倾向 下一步队列 把回答变成动作 1. 回看最近新闻/政策分析“长期资金入市政策继续推进”：先标记这条信息属于宏观、政策、产品规则还是市场情绪，不要直接跳到买卖结论。 2. 进入 Simulation，优先完成“追热点克制训练”方向的情境训练。 3. 进入 Learning，先完成《基金基础》这门课。 4. 进入 Portfolio，查看最近一份组合体检报告。"
+    },
+    {
+      "name": "learning_mark_section",
+      "clicked": true,
+      "ok": true,
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 课程 学习 课程路径与进度 Beginner Core Path 基金基础 先看懂基金买了什么、净值为什么会波动，以及长期持有和短期情绪反应的差别。 课程状态 待开始 建立基金、净值、波动和长期持有的共同语言。 课程进度 0% 0/3 sections completed 预计时长 24 min 先用可完成的小节推进，而不是堆叠大而空的内容。 下一节 基金到底持有什么 完成当前课后，工作台的学习动作也会一起刷新。 Sections 逐节完成，逐节回写。 每个小节完成后，学习中心和工作台会一起更新。 SECTION 01 基金到底持有什么 先区分基金和单一股票，理解基金是在帮你持有一篮子资产。 8 min 待完成 标记为已完成 SECTION 02 净值和波动怎么看 把净值波动理解成持仓资产变化的结果，而不是简单的好坏信号。 8 min 待完成 标记为已完成 SECTION 03 长期持有为什么重要 建立周期视角，避免把短期涨跌误解成策略本身失效。 8 min 待完成 标记为已完成 返回学习中心 去看工作台更新"
+    },
+    {
+      "name": "portfolio_submit_snapshot",
+      "clicked": true,
+      "ok": true,
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 体检 组合 持仓分析与报告 组合分析 先解释持仓结构，再讨论配置原则。 手动录入快照后，系统会生成结构化报告，并在工作台和教练中继续引用。 最近报告 已生成 每次提交都会生成一份新的持仓快照和分析记录。 最近估值 ¥52,000 总资产按现金加持仓快照估算，不接实时行情。 最近快照 2026/5/16 后续教练会优先参考最近一份组合报告。 历史记录 1 份 每次录入都保留历史，不用最新状态覆盖一切。 Manual snapshot 录入第一份或下一份持仓快照。 这里记录组合状态，不生成交易指令。 快照日期 现金金额 HOLDING 01 删除 基金代码 基金名称 基金类型 权益基金 混合基金 债券基金 货币基金 海外 / QDII 商品 / 黄金 持仓金额 添加一行持仓 生成组合报告 请为每一行持仓填写基金代码、基金名称和大于 0 的持仓金额。 Latest report 最近一份组合体检报告 报告分为配置分布、持仓权重、风险暴露和下一步动作。 SNAPSHOT 2026/5/16 待继续观察 报告生成 2026/5/16 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34.6%，成长型暴露约 57.7%，防守型暴露约 30.8%。 待继续观察 TOTAL ¥52,000 CASH 11.5% TOP HOLDING 34.6% 权益基金 34.6% 债券基金 30.8% 海外 / QDII 23.1% 现金 11.5% RISK EXPOSURE 1 组合里既有成长暴露，也保留了一定缓冲，整体更接近平衡型风险暴露。 2 现金占比处于可控区间，组合主要风险来自已持有基金而不是大量闲置现金。 CONCENTRATION FLAGS 1 当前至少有一只基金权重超过 25%，建议优先检查是否承担了过多单一主题风险。 ALLOCATION BALANCE 1 组合已经覆盖多个类型，但仍要继续检查这些基金是否承担了重复主题暴露。 2 组合里已经有一定缓冲资产，可以继续观察它们是否真的承担了风险缓释作用。 RECOMMENDED ACTIONS 1 先检查第一大持仓是否过重，再判断是否需要讨论分散原则。 2 进入 Coach，把这份组合报告作为上下文继续追问配置逻辑。 3 保留一份新的持仓快照，后续才能比较你的配置纪律是否在改善。 HOLDING WEIGHTS 每一只基金在组合里承担多少波动。 3 只基金 HOLDING 01 招商中证白酒指数 161725 · 权益基金 ¥18,000 34.6% HOLDING 02 易方达安心债券 110027 · 债券基金 ¥16,000 30.8% HOLDING 03 华夏恒生 ETF 联接 000071 · 海外 / QDII ¥12,000 23.1% History 历史快照 每次录入都会保留一份历史，便于对照结构变化。 2026/5/16 你的当前目标是“建立长期基金投资纪律，先理解风险和组合结构。”，这份快照总资产约为 52000.00 元。 当前最大单一基金权重约 34."
+    },
+    {
+      "name": "simulation_start_and_actions",
+      "started": true,
+      "submitted": 0,
+      "ok": true,
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 训练 情境 历史训练与复盘 历史情境训练 把“市场一震就想动手”的瞬间，变成一份可追溯的决策日志。 挑选历史场景，在关键节点写下动作和理由，再用结构化复盘看清自己的纪律与偏差。 这里不模拟交易执行，只训练判断过程。 风险等级：进取 当前偏差焦点：performance_chasing_risk 可选场景 2 个 01 挑选场景 先理解背景，不让训练变成无上下文点按钮。 02 写下理由 动作之前先写判断依据，留下以后能复盘的证据。 03 接收反馈 每一步读取反馈，不把行为偏差藏在结果后面。 04 生成复盘 最后回看强项、盲点和下周训练动作。 行为焦点 performance_chasing_risk 训练优先围绕你最容易被情绪推着走的那一类场景展开。 推荐场景 热门赛道狂热期的追涨冲动 当前会优先高亮推荐场景，但仍允许你主动切换。 训练状态 未开始 启动第一个情境后，这里会显示训练状态。 训练链路 4 步 选场景、启动训练、提交动作、生成复盘。 场景目录 先从场景池里挑一个值得练的历史节点。 左侧是可用情境；选择后，右侧会展开背景、训练目标和时间线预览。 历史训练 疫情冲击下的回撤纪律 1 在连续大跌、情绪失控和初步反弹中，练习如何把恐慌和长期计划拆开。 panic_selling_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 历史训练 推荐 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 performance_chasing_risk 预计时长 12 min 决策节点 3 起始背景 历史样本 Scenario dossier 热门赛道狂热期的追涨冲动 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 历史训练 热门赛道狂热期的追涨冲动 1 在朋友都在晒收益、单一主题基金连涨和随后的波动中，练习如何克制追热点。 TRAINING OBJECTIVE 在波动背景里记录你的判断顺序，而不是只看最后对错。 BIAS FOCUS performance_chasing_risk TIMELINE PREVIEW 1 启动情境后会显示关键节点。 正在启动情境... 先去教练预热 Decision room 启动一个情境后，这里会进入训练会话。 先从上方卡片选择一个场景并启动 session，再进入关键节点判断。 还没有启动中的 session。先从上面的场景档案中点“开始这个情境”，这里才会展开真正的决策节点。 训练看板 Waiting 进度 0% 会话启动后，这里会显示摘要与阶段说明。 INSTANT FEEDBACK 你每提交一次动作，这里都会渲染本轮反馈，而不是只在结尾告诉你结果。 AFTER THIS SESSION 1. 读取最终复盘，确认这次训练暴露了哪些行为偏差。 2. 回到工作台，看下一步训练动作是否被刷新。 3. 去教练追问“为什么我会在这一类波动里犹豫或冲动”。 查看最终复盘 回工作台"
+    },
+    {
+      "name": "news_analyze",
+      "selectedNews": true,
+      "submittedNews": true,
+      "ok": false,
+      "textSample": "FundGene 搜索课程、组合报告、情境训练 Hi, FundGene Demo FG 总览 工作台 建档 教练 学习 组合 情境 资讯 退出登录 解读 资讯 事实、路径与不确定性 资讯解读 把新闻标题里的情绪噪音，拆成事实、路径和不确定性。 每条资讯都先拆事实，再拆影响路径和不确定性；这里不会把新闻标题翻译成交易指令。 资讯源 已同步 资讯源不可用时，仍可使用手动解读。 资讯数量 20 条 同时兼容资讯条目与政策条目两类列表。 解释原则 不追热点 只做事实解读和影响路径，不输出追热点买卖建议。 用户上下文 FundGene Demo 建立长期基金投资纪律，先理解风险和组合结构。 资讯台 选择一条资讯，生成结构化 readout。 优先看事实和影响路径，再决定是否回到学习、组合或教练继续追问。 POLICY SEC Charges 21 Individuals With Alleged Wide-Reaching Insider Trading Scheme 5/6 23:24 The Securities and Exchange Commission today charged 21 individuals for their alleged involvement in a decade-long insider trading scheme that used information misappropriated from multiple global law firms and resulted in millions of dollars in illicit… Press Releases 政策影响路径 生成解读 查看来源 POLICY SEC Divisions of Investment Management and Corporation Finance Issue Staff Guidance Supporting Retirement Plans for Small Businesses 5/5 20:23 Staff in the Securities and Exchange Commission’s Divisions of Investment Management and Corporation Finance issued guidance addressing certain questions regarding the application of the federal securities laws to pooled employer plans (PEPs), which help… Press Releases 政策影响路径 生成解读 查看来源 POLICY SEC Proposes Amendments to Permit Optional Semiannual Reporting by Public Companies 5/5 15:54 The Securities and Exchange Commission today proposed rule and form amendments that would give public companies the option of filing semiannual reports in lieu of quarterly reports to meet their interim reporting obligations under the federal securities… Press Releases 政策影响路径 生成解读 查看来源 NEWS Agencies issue host state loan-to-d"
+    }
+  ],
+  "domAudit": {
+    "overview": {
+      "controls": 19,
+      "unlabeled": [],
+      "h1Count": 2,
+      "h2Count": 2,
+      "textLength": 840
+    },
+    "start": {
+      "controls": 16,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 0,
+      "textLength": 1490
+    },
+    "dashboard": {
+      "controls": 16,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 0,
+      "textLength": 1490
+    },
+    "onboarding": {
+      "controls": 47,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 1,
+      "textLength": 1125
+    },
+    "coach": {
+      "controls": 15,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 0,
+      "textLength": 887
+    },
+    "learning": {
+      "controls": 13,
+      "unlabeled": [],
+      "h1Count": 2,
+      "h2Count": 4,
+      "textLength": 706
+    },
+    "course-fund-basics": {
+      "controls": 15,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 5,
+      "textLength": 567
+    },
+    "portfolio": {
+      "controls": 19,
+      "unlabeled": [],
+      "h1Count": 1,
+      "h2Count": 4,
+      "textLength": 1468
+    },
+    "simulation": {
+      "controls": 16,
+      "unlabeled": [],
+      "h1Count": 2,
+      "h2Count": 7,
+      "textLength": 1447
+    },
+    "news": {
+      "controls": 53,
+      "unlabeled": [],
+      "h1Count": 2,
+      "h2Count": 3,
+      "textLength": 7334
+    }
+  },
+  "events": {
+    "console": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      }
+    ],
+    "requestFailed": [
+      {
+        "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-sc-108-wght-normal.0ocargj4jnqzb.woff2",
+        "failure": "net::ERR_ABORTED"
+      }
+    ],
+    "pageErrors": []
+  }
+}

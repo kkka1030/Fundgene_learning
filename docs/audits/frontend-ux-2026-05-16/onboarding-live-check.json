@@ -1,0 +1,9 @@
+{
+  "name": "onboarding_register_profile_questionnaire",
+  "ok": true,
+  "urlAfterRegister": "http://127.0.0.1:3000/onboarding",
+  "urlAfterSubmit": "http://127.0.0.1:3000/dashboard",
+  "visibleDashboard": true,
+  "visibleRiskLevel": true,
+  "error": null
+}

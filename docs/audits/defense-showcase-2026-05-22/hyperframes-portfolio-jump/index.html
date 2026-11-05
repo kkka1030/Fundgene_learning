@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f9ff;
+        color: #0f172a;
+        font-family: system-ui, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 76% 16%, rgba(0, 113, 227, 0.13), rgba(0, 113, 227, 0) 34%),
+          radial-gradient(circle at 14% 84%, rgba(70, 208, 172, 0.14), rgba(70, 208, 172, 0) 32%),
+          linear-gradient(135deg, #f8fbff 0%, #edf7ff 100%);
+      }
+
+      .grid-noise {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(15, 23, 42, 0.024) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.18), transparent 72%);
+      }
+
+      .frame {
+        position: absolute;
+        left: 140px;
+        top: 60px;
+        width: 1640px;
+        height: 960px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.86);
+        transform-origin: center;
+        box-shadow:
+          0 34px 100px rgba(15, 23, 42, 0.13),
+          inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      }
+
+      .agent-screen,
+      .portfolio-screen {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        grid-template-columns: 300px minmax(0, 1fr) 330px;
+        background: rgba(255, 255, 255, 0.82);
+      }
+
+      .side,
+      .support {
+        padding: 34px 28px;
+        background: rgba(247, 251, 255, 0.76);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #0f172a;
+        font-size: 30px;
+        font-weight: 820;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 50px;
+        height: 50px;
+        place-items: center;
+        border-radius: 16px;
+        background: #0071e3;
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 860;
+        box-shadow: 0 16px 34px rgba(0, 113, 227, 0.24);
+      }
+
+      .nav {
+        display: grid;
+        gap: 12px;
+        margin-top: 42px;
+      }
+
+      .nav-item {
+        display: flex;
+        justify-content: space-between;
+        border-radius: 18px;
+        color: #64748b;
+        font-size: 20px;
+        font-weight: 720;
+        padding: 16px 18px;
+      }
+
+      .nav-item.active {
+        background: rgba(0, 113, 227, 0.1);
+        color: #0071e3;
+      }
+
+      .main {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        padding: 36px 44px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        padding-bottom: 18px;
+      }
+
+      .eyebrow {
+        color: #0071e3;
+        font-size: 18px;
+        font-weight: 840;
+      }
+
+      h1,
+      h2 {
+        margin: 8px 0 0;
+        color: #0f172a;
+        font-size: 38px;
+        line-height: 1.13;
+      }
+
+      .task-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 20px;
+        padding-top: 28px;
+      }
+
+      .hint-card,
+      .answer-card,
+      .portfolio-card {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 28px;
+        background: #ffffff;
+        box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+      }
+
+      .hint-card {
+        padding: 24px 26px;
+      }
+
+      .hint-card strong,
+      .answer-card strong {
+        display: block;
+        color: #0f172a;
+        font-size: 25px;
+        line-height: 1.3;
+      }
+
+      .hint-card span,
+      .answer-card span {
+        display: block;
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 18px;
+        line-height: 1.45;
+      }
+
+      .input-area {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        border: 1px solid rgba(0, 113, 227, 0.16);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 20px 54px rgba(15, 23, 42, 0.1);
+        padding: 16px 18px;
+      }
+
+      .input-label {
+        color: #0071e3;
+        font-size: 18px;
+        font-weight: 820;
+      }
+
+      .typed-text {
+        flex: 1;
+        min-height: 34px;
+        color: #0f172a;
+        font-size: 24px;
+        font-weight: 650;
+        line-height: 1.4;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 28px;
+        margin-left: 4px;
+        transform: translateY(5px);
+        background: #0071e3;
+      }
+
+      .send-button,
+      .jump-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        background: #0071e3;
+        color: #ffffff;
+        font-size: 19px;
+        font-weight: 800;
+        padding: 13px 22px;
+        box-shadow: 0 14px 34px rgba(0, 113, 227, 0.22);
+      }
+
+      .support-title {
+        color: #0071e3;
+        font-size: 18px;
+        font-weight: 840;
+      }
+
+      .support-card {
+        margin-top: 20px;
+        border: 1px solid rgba(15, 23, 42, 0.07);
+        border-radius: 22px;
+        background: #ffffff;
+        padding: 18px;
+      }
+
+      .support-card b {
+        display: block;
+        color: #0f172a;
+        font-size: 20px;
+      }
+
+      .support-card span {
+        display: block;
+        margin-top: 8px;
+        color: #64748b;
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .answer-card {
+        padding: 24px 26px;
+      }
+
+      .answer-card .next-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .portfolio-screen {
+        grid-template-columns: 275px minmax(0, 1fr);
+        opacity: 0;
+      }
+
+      .portfolio-main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 470px;
+        gap: 28px;
+        min-width: 0;
+        padding: 34px 38px 38px;
+      }
+
+      .portfolio-intro {
+        grid-column: 1 / -1;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        padding-bottom: 20px;
+      }
+
+      .portfolio-intro h2 {
+        font-size: 44px;
+      }
+
+      .portfolio-card {
+        padding: 26px 28px;
+      }
+
+      .portfolio-card h3 {
+        margin: 0;
+        color: #0f172a;
+        font-size: 30px;
+        line-height: 1.25;
+      }
+
+      .portfolio-card p {
+        margin: 12px 0 0;
+        color: #64748b;
+        font-size: 19px;
+        line-height: 1.45;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .metric {
+        border: 1px solid rgba(15, 23, 42, 0.07);
+        border-radius: 20px;
+        padding: 18px;
+      }
+
+      .metric span {
+        display: block;
+        color: #64748b;
+        font-size: 15px;
+        font-weight: 760;
+      }
+
+      .metric b {
+        display: block;
+        margin-top: 8px;
+        color: #0f172a;
+        font-size: 25px;
+      }
+
+      .rings {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 24px;
+        align-items: center;
+        margin-top: 22px;
+      }
+
+      .donut {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: conic-gradient(#31afe0 0 35%, #2ec766 35% 66%, #5d5ce0 66% 89%, #0071e3 89% 100%);
+        display: grid;
+        place-items: center;
+      }
+
+      .donut::after {
+        content: "持仓权重";
+        display: grid;
+        width: 116px;
+        height: 116px;
+        place-items: center;
+        border-radius: 50%;
+        background: #ffffff;
+        color: #0f172a;
+        font-size: 17px;
+        font-weight: 820;
+      }
+
+      .bar-list {
+        display: grid;
+        gap: 16px;
+      }
+
+      .bar-row {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr) 54px;
+        gap: 12px;
+        align-items: center;
+        color: #334155;
+        font-size: 17px;
+        font-weight: 720;
+      }
+
+      .bar {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.08);
+      }
+
+      .bar i {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: #0071e3;
+      }
+
+      .risk-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .risk-item {
+        border: 1px solid rgba(0, 113, 227, 0.12);
+        border-radius: 20px;
+        background: rgba(248, 252, 255, 0.9);
+        color: #334155;
+        font-size: 18px;
+        font-weight: 720;
+        line-height: 1.38;
+        padding: 17px;
+      }
+
+      .holding-card {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .holding {
+        border: 1px solid rgba(15, 23, 42, 0.07);
+        border-radius: 20px;
+        padding: 16px 18px;
+      }
+
+      .holding-top {
+        display: flex;
+        justify-content: space-between;
+        color: #0f172a;
+        font-size: 18px;
+        font-weight: 820;
+      }
+
+      .holding-sub {
+        margin-top: 4px;
+        color: #64748b;
+        font-size: 15px;
+      }
+
+      .route-overlay {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        border: 1px solid rgba(0, 113, 227, 0.16);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 26px 78px rgba(15, 23, 42, 0.14);
+        color: #0f172a;
+        font-size: 28px;
+        font-weight: 830;
+        padding: 20px 30px;
+        transform: translate(-50%, -50%);
+      }
+
+      .route-overlay span {
+        color: #0071e3;
+      }
+
+      .portfolio-highlight {
+        position: absolute;
+        left: 563px;
+        top: 216px;
+        z-index: 12;
+        width: 575px;
+        height: 146px;
+        border: 4px solid rgba(0, 113, 227, 0.62);
+        border-radius: 30px;
+        box-shadow:
+          0 0 0 8px rgba(0, 113, 227, 0.1),
+          0 24px 58px rgba(0, 113, 227, 0.16);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9.2" data-width="1920" data-height="1080">
+      <div class="grid-noise"></div>
+      <div class="frame">
+        <section id="agent-screen" class="agent-screen">
+          <aside class="side">
+            <div class="brand"><div class="brand-mark">F</div>FundGene</div>
+            <nav class="nav">
+              <div class="nav-item">今天 <span>→</span></div>
+              <div class="nav-item active">Agent <span>→</span></div>
+              <div class="nav-item">自动任务 <span>→</span></div>
+              <div class="nav-item">资料 <span>→</span></div>
+              <div class="nav-item">组合 <span>→</span></div>
+            </nav>
+          </aside>
+          <main class="main">
+            <div class="topbar">
+              <div>
+                <div class="eyebrow">Agent 工作区</div>
+                <h1>把一个真实问题交给 Agent</h1>
+              </div>
+              <div class="send-button">新任务</div>
+            </div>
+            <div class="task-body">
+              <div class="hint-card">
+                <strong>示例：先从问题开始，而不是先找页面。</strong>
+                <span>Agent 会识别这是组合问题，并把用户带到持仓分析结果。</span>
+              </div>
+              <div id="answer-card" class="answer-card">
+                <div class="eyebrow">Agent 输出</div>
+                <strong>这是组合检查任务。我会先进入持仓分析，看第一大持仓、资产分布和集中度。</strong>
+                <span>不生成买卖建议，只整理风险来源和下一步检查。</span>
+                <div class="next-row">
+                  <div id="jump-button" class="jump-button">查看持仓分析 →</div>
+                </div>
+              </div>
+              <div class="input-area">
+                <div class="input-label">任务输入</div>
+                <div class="typed-text">
+                  <span id="typed-text"></span><span id="cursor" class="cursor"></span>
+                </div>
+                <div id="send-button" class="send-button">发送</div>
+              </div>
+            </div>
+          </main>
+          <aside class="support">
+            <div class="support-title">整理进度</div>
+            <div class="support-card">
+              <b>接收问题</b>
+              <span>识别为组合/持仓检查任务。</span>
+            </div>
+            <div class="support-card">
+              <b>准备跳转</b>
+              <span>打开最近一份组合体检报告。</span>
+            </div>
+          </aside>
+        </section>
+
+        <div id="route-overlay" class="route-overlay">Agent 识别任务 <span>→ 持仓分析</span></div>
+
+        <section id="portfolio-screen" class="portfolio-screen">
+          <aside class="side">
+            <div class="brand"><div class="brand-mark">F</div>FundGene</div>
+            <nav class="nav">
+              <div class="nav-item">今天 <span>→</span></div>
+              <div class="nav-item">Agent <span>→</span></div>
+              <div class="nav-item active">组合 <span>→</span></div>
+              <div class="nav-item">训练 <span>→</span></div>
+              <div class="nav-item">资讯 <span>→</span></div>
+            </nav>
+          </aside>
+          <main class="portfolio-main">
+            <div class="portfolio-intro">
+              <div class="eyebrow">持仓分析</div>
+              <h2>最近一份组合体检报告</h2>
+            </div>
+            <section class="portfolio-card">
+              <div class="eyebrow">结论</div>
+              <h3>待继续观察</h3>
+              <p>这份快照总资产约为 52,000 元，权益暴露适中，第一大持仓约 34%。</p>
+              <div class="metric-row">
+                <div class="metric"><span>总资产</span><b>¥52,000</b></div>
+                <div class="metric"><span>现金</span><b>11.5%</b></div>
+                <div class="metric"><span>第一大持仓</span><b>34.6%</b></div>
+              </div>
+              <div class="risk-grid">
+                <div class="risk-item">组合里既有成长暴露，也保留了一定缓冲。</div>
+                <div class="risk-item">第一大持仓超过 25%，建议检查单一主题风险。</div>
+                <div class="risk-item">组合覆盖多个类型，但仍要检查主题是否重复。</div>
+                <div class="risk-item">下一步先检查第一大持仓是否过重。</div>
+              </div>
+            </section>
+            <section class="portfolio-card">
+              <div class="eyebrow">持仓权重</div>
+              <h3>每一只基金在组合里承担多少波动。</h3>
+              <div class="rings">
+                <div class="donut"></div>
+                <div class="bar-list">
+                  <div class="bar-row"><span>权益基金</span><div class="bar"><i style="width: 34.6%"></i></div><span>34.6%</span></div>
+                  <div class="bar-row"><span>债券基金</span><div class="bar"><i style="width: 30.8%"></i></div><span>30.8%</span></div>
+                  <div class="bar-row"><span>海外/QDII</span><div class="bar"><i style="width: 23.1%"></i></div><span>23.1%</span></div>
+                  <div class="bar-row"><span>现金</span><div class="bar"><i style="width: 11.5%"></i></div><span>11.5%</span></div>
+                </div>
+              </div>
+              <div class="holding-card">
+                <div class="holding">
+                  <div class="holding-top"><span>招商中证白酒指数</span><span>¥18,000</span></div>
+                  <div class="holding-sub">161725 · 权益基金 · 34.6%</div>
+                </div>
+                <div class="holding">
+                  <div class="holding-top"><span>易方达安心债券</span><span>¥16,000</span></div>
+                  <div class="holding-sub">110027 · 债券基金 · 30.8%</div>
+                </div>
+                <div class="holding">
+                  <div class="holding-top"><span>华夏恒生 ETF 联接</span><span>¥12,000</span></div>
+                  <div class="holding-sub">000071 · 海外/QDII · 23.1%</div>
+                </div>
+              </div>
+            </section>
+          </main>
+          <div id="portfolio-highlight" class="portfolio-highlight"></div>
+        </section>
+      </div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const prompt = "帮我检查这份组合里最需要关注的风险来源。";
+      const typed = document.querySelector("#typed-text");
+      const cursor = document.querySelector("#cursor");
+      const chars = [...prompt];
+      typed.innerHTML = chars.map((char) => `<span class="char">${char}</span>`).join("");
+
+      gsap.set(".char", { opacity: 0 });
+      gsap.set("#answer-card", { opacity: 0, y: 18, scale: 0.99 });
+      gsap.set("#route-overlay", { opacity: 0, scale: 0.94 });
+      gsap.set("#portfolio-highlight", { opacity: 0, scale: 0.98 });
+
+      tl.from(".frame", { opacity: 0, y: 24, scale: 0.988, duration: 0.5, ease: "power3.out" }, 0);
+      tl.from(".brand, .nav-item, .topbar, .hint-card, .input-area, .support-card", { opacity: 0, y: 14, duration: 0.36, stagger: 0.04, ease: "power2.out" }, 0.22);
+      tl.to(".char", { opacity: 1, duration: 0.03, stagger: 0.045, ease: "none" }, 1.1);
+      tl.to("#cursor", { opacity: 0, duration: 0.16, repeat: 3, yoyo: true, ease: "none" }, 2.88);
+      tl.from("#send-button", { scale: 0.94, duration: 0.18, ease: "power2.out" }, 3.05);
+      tl.to("#send-button", { scale: 0.96, duration: 0.1, ease: "power2.inOut" }, 3.24);
+      tl.to("#send-button", { scale: 1, duration: 0.14, ease: "power2.out" }, 3.36);
+      tl.to("#answer-card", { opacity: 1, y: 0, scale: 1, duration: 0.44, ease: "power2.out" }, 3.55);
+      tl.from("#jump-button", { scale: 0.96, duration: 0.18, ease: "power2.out" }, 4.12);
+      tl.to("#jump-button", { scale: 0.96, duration: 0.12, ease: "power1.inOut" }, 4.55);
+      tl.to("#jump-button", { scale: 1, duration: 0.12, ease: "power1.out" }, 4.67);
+      tl.to("#route-overlay", { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" }, 4.72);
+      tl.to("#route-overlay", { opacity: 0, scale: 1.04, duration: 0.22, ease: "power1.in" }, 5.12);
+      tl.to("#agent-screen", { opacity: 0, x: -70, duration: 0.3, ease: "power2.inOut" }, 5.0);
+      tl.to("#portfolio-screen", { opacity: 1, duration: 0.28, ease: "power2.out" }, 5.08);
+      tl.from("#portfolio-screen .portfolio-intro", { opacity: 0, y: 10, duration: 0.22, ease: "power2.out" }, 5.18);
+      tl.from("#portfolio-screen .portfolio-card", { opacity: 0, y: 12, duration: 0.26, stagger: 0.04, ease: "power2.out" }, 5.28);
+      tl.from("#portfolio-screen .metric, #portfolio-screen .risk-item, #portfolio-screen .holding", { opacity: 0, y: 8, duration: 0.18, stagger: 0.018, ease: "power2.out" }, 5.46);
+      tl.to("#portfolio-highlight", { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" }, 6.35);
+      tl.to("#portfolio-highlight", { opacity: 0.3, duration: 0.42, repeat: 3, yoyo: true, ease: "sine.inOut" }, 6.78);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
