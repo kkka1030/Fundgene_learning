@@ -1,0 +1,18 @@
+{
+  "email": "codex-ai-studio-review-1779278612407@fundgene.local",
+  "base": "https://fundgene.onrender.com",
+  "outDir": "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331",
+  "screenshots": [
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/01-start-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/01b-start-after-submit.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/02-today-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/02-agent-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/02-news-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/02-simulation-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/02-profile-desktop.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/03-today-mobile.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/03-agent-mobile.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/03-news-mobile.png",
+    "/Users/xueyicheng/Documents/SRTP/FundGene/docs/audits/ai-studio-frontend-review-2026-05-20/screenshots/20260520-200331/03-simulation-mobile.png"
+  ]
+}

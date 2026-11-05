@@ -1,0 +1,16 @@
+{
+  "name": "coach_and_news_waited_live_check",
+  "coach": {
+    "ok": true,
+    "answerVisible": true,
+    "noRunId": true,
+    "noToolName": true,
+    "error": null
+  },
+  "news": {
+    "ok": true,
+    "readoutVisible": true,
+    "riskNoticeVisible": true,
+    "error": null
+  }
+}

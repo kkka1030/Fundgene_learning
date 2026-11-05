@@ -1,0 +1,9 @@
+{
+  "name": "portfolio_valid_snapshot_submit",
+  "ok": true,
+  "submitted": true,
+  "reportVisible": true,
+  "totalVisible": true,
+  "url": "http://127.0.0.1:3000/portfolio",
+  "error": null
+}

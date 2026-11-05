@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f9ff;
+        color: #0f172a;
+        font-family: system-ui, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 78% 18%, rgba(0, 113, 227, 0.13), rgba(0, 113, 227, 0) 32%),
+          radial-gradient(circle at 12% 80%, rgba(70, 208, 172, 0.14), rgba(70, 208, 172, 0) 34%),
+          linear-gradient(135deg, #f7fbff 0%, #edf7ff 100%);
+      }
+
+      .brand-noise {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(15, 23, 42, 0.028) 1px, rgba(15, 23, 42, 0) 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.024) 1px, rgba(15, 23, 42, 0) 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at 50% 52%, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0) 72%);
+      }
+
+      .intro,
+      .chapter,
+      .outro {
+        position: absolute;
+        inset: 0;
+        z-index: 12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 96px;
+      }
+
+      .glass-card {
+        position: relative;
+        display: grid;
+        width: 1480px;
+        min-height: 690px;
+        grid-template-columns: minmax(0, 1.08fr) 440px;
+        gap: 84px;
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 48px;
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow:
+          0 40px 110px rgba(15, 23, 42, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(22px);
+        padding: 82px 88px;
+      }
+
+      .glass-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -120px -170px auto;
+        width: 520px;
+        height: 520px;
+        border-radius: 999px;
+        background: rgba(220, 238, 255, 0.68);
+        filter: blur(12px);
+        z-index: 0;
+      }
+
+      .chapter-copy,
+      .signal-panel {
+        position: relative;
+        z-index: 1;
+      }
+
+      .chapter-index,
+      .logo-mark {
+        display: grid;
+        width: 72px;
+        height: 72px;
+        place-items: center;
+        border-radius: 22px;
+        border: 1px solid rgba(0, 113, 227, 0.24);
+        background: #dceeff;
+        color: #0057b8;
+        font-family: monospace;
+        font-size: 24px;
+        font-weight: 800;
+        box-shadow: 0 20px 38px rgba(0, 113, 227, 0.28);
+      }
+
+      .eyebrow {
+        margin-top: 62px;
+        color: #64748b;
+        font-size: 23px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
+      h1,
+      h2 {
+        margin: 24px 0 0;
+        max-width: 780px;
+        color: #0f172a;
+        font-size: 86px;
+        font-weight: 850;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin-top: 22px;
+        max-width: 680px;
+        color: #334155;
+        font-size: 31px;
+        font-weight: 420;
+        line-height: 1.5;
+      }
+
+      .rule {
+        width: 380px;
+        height: 5px;
+        margin-top: 74px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #0071e3, rgba(0, 113, 227, 0.12));
+      }
+
+      .tagline {
+        margin-top: 34px;
+        color: #64748b;
+        font-size: 22px;
+        letter-spacing: 0.01em;
+      }
+
+      .signal-panel {
+        align-self: center;
+        padding: 58px 54px;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        border-radius: 38px;
+        background: rgba(255, 255, 255, 0.52);
+      }
+
+      .signal-row {
+        display: grid;
+        gap: 14px;
+        padding: 28px 0;
+        color: #475569;
+        font-size: 25px;
+        font-weight: 500;
+      }
+
+      .signal-row + .signal-row {
+        border-top: 1px solid rgba(15, 23, 42, 0.07);
+      }
+
+      .signal-line {
+        width: 100%;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(0, 113, 227, 0.24);
+      }
+
+      .signal-row:nth-child(2) .signal-line {
+        background: rgba(70, 208, 172, 0.26);
+      }
+
+      .signal-row:nth-child(3) .signal-line {
+        background: rgba(255, 176, 32, 0.26);
+      }
+
+      .demo-video {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        width: 1588px;
+        height: 1080px;
+        object-fit: contain;
+        transform: translate(-50%, -50%);
+        filter: drop-shadow(0 34px 70px rgba(15, 23, 42, 0.13));
+      }
+
+      .demo-frame {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 3;
+        width: 1628px;
+        height: 1060px;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.42);
+        box-shadow: 0 34px 100px rgba(15, 23, 42, 0.11);
+      }
+
+      .intro .glass-card,
+      .outro .glass-card {
+        grid-template-columns: 1fr;
+        min-height: 650px;
+      }
+
+      .intro h1,
+      .outro h1 {
+        font-size: 92px;
+      }
+
+      .outro .subtitle {
+        font-size: 36px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="66.85"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="brand-noise" data-layout-ignore></div>
+      <div id="demo-frame" class="clip demo-frame" data-start="4.35" data-duration="59.4" data-track-index="7"></div>
+
+      <section id="intro" class="clip intro" data-start="0" data-duration="2.5" data-track-index="1">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="logo-mark">FG</div>
+            <p class="eyebrow">FundGene · Agent Command Center</p>
+            <h1>先理解，再决策</h1>
+            <p class="subtitle">给基金新手一个会解释、会训练、会确认的投资教练工作台。</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="chapter-01" class="clip chapter" data-start="2.2" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">01</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>进入工作区</h2>
+            <p class="subtitle">核心任务，一屏展开</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-01" class="clip demo-video" data-start="4.35" data-duration="4.2" data-track-index="0" src="assets/01-hero-command-center.mp4" muted playsinline></video>
+
+      <section id="chapter-02" class="clip chapter" data-start="8.25" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">02</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>先给判断</h2>
+            <p class="subtitle">今天该关注什么</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-02" class="clip demo-video" data-start="10.4" data-duration="2.93" data-track-index="0" src="assets/02-today-daily-brief.mp4" muted playsinline></video>
+
+      <section id="chapter-03" class="clip chapter" data-start="13.05" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">03</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>解释影响</h2>
+            <p class="subtitle">结合画像与组合</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-03" class="clip demo-video" data-start="15.2" data-duration="15.77" data-track-index="0" src="assets/03-agent-workspace.mp4" muted playsinline></video>
+
+      <section id="chapter-04" class="clip chapter" data-start="30.65" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">04</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>读懂资讯</h2>
+            <p class="subtitle">新闻进入个人组合</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-04" class="clip demo-video" data-start="32.8" data-duration="13.67" data-track-index="0" src="assets/04-news-impact.mp4" muted playsinline></video>
+
+      <section id="chapter-05" class="clip chapter" data-start="46.15" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">05</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>训练判断</h2>
+            <p class="subtitle">在历史情境里练习</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-05" class="clip demo-video" data-start="48.3" data-duration="6.87" data-track-index="0" src="assets/05-simulation-training.mp4" muted playsinline></video>
+
+      <section id="chapter-06" class="clip chapter" data-start="54.85" data-duration="2.25" data-track-index="2">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="chapter-index">06</div>
+            <p class="eyebrow">FundGene</p>
+            <h2>持续沉淀</h2>
+            <p class="subtitle">观察、确认、回写</p>
+            <div class="rule"></div>
+            <p class="tagline">Explain · Train · Confirm</p>
+          </div>
+          <div class="signal-panel">
+            <div class="signal-row"><span>理解变化</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>练习判断</span><div class="signal-line"></div></div>
+            <div class="signal-row"><span>确认行动</span><div class="signal-line"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <video id="clip-06" class="clip demo-video" data-start="57" data-duration="6.73" data-track-index="0" src="assets/06-automation-profile.mp4" muted playsinline></video>
+
+      <section id="outro" class="clip outro" data-start="63.45" data-duration="3.4" data-track-index="1">
+        <div class="glass-card">
+          <div class="chapter-copy">
+            <div class="logo-mark">FG</div>
+            <p class="eyebrow">FundGene</p>
+            <h1>Explain · Train · Confirm</h1>
+            <p class="subtitle">让基金新手先理解，再决策。</p>
+            <div class="rule"></div>
+            <p class="tagline">FundGene</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      function enterSimpleCard(selector, at) {
+        tl.from(`${selector} .glass-card`, { opacity: 0, y: 34, scale: 0.985, duration: 0.56, ease: "power3.out" }, at + 0.12);
+        tl.from(`${selector} .chapter-index, ${selector} .logo-mark`, { opacity: 0, scale: 0.72, rotation: -3, duration: 0.38, ease: "back.out(1.5)" }, at + 0.25);
+        tl.from(`${selector} .eyebrow`, { opacity: 0, y: 20, duration: 0.36, ease: "power2.out" }, at + 0.34);
+        tl.from(`${selector} h1, ${selector} h2`, { opacity: 0, y: 46, duration: 0.52, ease: "expo.out" }, at + 0.42);
+        tl.from(`${selector} .subtitle`, { opacity: 0, y: 24, duration: 0.42, ease: "sine.out" }, at + 0.56);
+        tl.from(`${selector} .rule`, { opacity: 0, scaleX: 0.38, transformOrigin: "left center", duration: 0.48, ease: "power2.out" }, at + 0.66);
+        tl.from(`${selector} .tagline`, { opacity: 0, y: 12, duration: 0.36, ease: "power1.out" }, at + 0.76);
+      }
+
+      function enterChapter(selector, at) {
+        enterSimpleCard(selector, at);
+        tl.from(`${selector} .signal-panel`, { opacity: 0, x: 30, duration: 0.5, ease: "power3.out" }, at + 0.38);
+        tl.from(`${selector} .signal-row`, { opacity: 0, y: 16, duration: 0.36, stagger: 0.08, ease: "power2.out" }, at + 0.54);
+      }
+
+      enterSimpleCard("#intro", 0);
+      enterChapter("#chapter-01", 2.2);
+      enterChapter("#chapter-02", 8.25);
+      enterChapter("#chapter-03", 13.05);
+      enterChapter("#chapter-04", 30.65);
+      enterChapter("#chapter-05", 46.15);
+      enterChapter("#chapter-06", 54.85);
+      enterSimpleCard("#outro", 63.45);
+
+      ["#clip-01", "#clip-02", "#clip-03", "#clip-04", "#clip-05", "#clip-06"].forEach((selector, index) => {
+        const starts = [4.35, 10.4, 15.2, 32.8, 48.3, 57];
+        tl.from(selector, { opacity: 0, scale: 0.992, duration: 0.46, ease: "power2.out" }, starts[index] + 0.04);
+      });
+
+      tl.from("#demo-frame", { opacity: 0, scale: 0.985, duration: 0.5, ease: "power2.out" }, 4.35);
+      tl.to("#outro .glass-card", { opacity: 0, y: -20, duration: 0.55, ease: "power2.in" }, 66.2);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

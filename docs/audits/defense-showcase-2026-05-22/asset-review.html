@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FundGene Defense Showcase Assets</title>
+    <style>
+      :root {
+        color: #0f172a;
+        background: #f5f8fc;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        width: min(1180px, calc(100vw - 48px));
+        margin: 0 auto;
+        padding: 48px 0 72px;
+      }
+
+      header {
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1.1;
+      }
+
+      p {
+        color: #475569;
+        line-height: 1.7;
+      }
+
+      section {
+        margin-top: 28px;
+      }
+
+      .panel {
+        border: 1px solid rgba(15, 23, 42, 0.09);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 22px 56px rgba(15, 23, 42, 0.08);
+        padding: 20px;
+      }
+
+      video,
+      img {
+        display: block;
+        width: 100%;
+        border-radius: 18px;
+        background: #fff;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .asset-card h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+      }
+
+      .asset-card p {
+        margin: 10px 0 0;
+        font-size: 13px;
+      }
+
+      @media (max-width: 860px) {
+        main {
+          width: min(100vw - 28px, 1180px);
+          padding-top: 28px;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>FundGene 答辩展示素材审核</h1>
+        <p>优先使用主视频做开场叙事；单段 GIF/MP4 用作后续功能页循环展示。</p>
+      </header>
+
+      <section class="panel">
+        <h2>主展示视频</h2>
+        <video src="assets/final/fundgene-defense-demo.mp4" controls muted playsinline></video>
+        <p>45.73 秒连续叙事：开场立题 → 每日判断 → Agent 追问 → 资讯触发 → 情境训练 → 后台跟进 → 品牌收束。新版全程保留完整 UI 画面，不做局部缩放或聚焦裁切；画面节奏由真实光标、可见点击、页面跳转和章节转场承担。今日页保留可见点击并顺势进入工作区；章节页使用带模糊 UI 背景的链条式过渡，片尾回到 FundGene / Explain · Train · Confirm / 让基金新手先理解，再决策。</p>
+      </section>
+
+      <section>
+        <h2>单段功能素材</h2>
+        <div class="grid">
+          <article class="panel asset-card">
+            <h3>01 Today Command Center</h3>
+            <img src="assets/gif/01-hero-command-center.gif" alt="Today Command Center GIF" />
+            <p>默认首页：每日判断、证据、安全下一步。</p>
+          </article>
+          <article class="panel asset-card">
+            <h3>03 Agent Workspace</h3>
+            <img src="assets/gif/03-agent-workspace.gif" alt="Agent Workspace GIF" />
+            <p>直接进入新任务，真实输入问题，回答明确点名所分析的政策资讯。</p>
+          </article>
+          <article class="panel asset-card">
+            <h3>04 News Impact</h3>
+            <img src="assets/gif/04-news-impact.gif" alt="News Impact GIF" />
+            <p>资讯/政策到个人组合影响路径，并跳转到 Agent 输出承接回答。</p>
+          </article>
+          <article class="panel asset-card">
+            <h3>05 Simulation Training</h3>
+            <img src="assets/gif/05-simulation-training.gif" alt="Simulation Training GIF" />
+            <p>完成选择、理由填写、提交与复盘建议。</p>
+          </article>
+          <article class="panel asset-card">
+            <h3>06 Automations + Profile</h3>
+            <img src="assets/gif/06-automation-profile.gif" alt="Automations and Profile GIF" />
+            <p>授权后台工作，立即执行后展示结果，资料页展示确认边界和授权上下文。</p>
+          </article>
+          <article class="panel asset-card">
+            <h3>Contact Sheet</h3>
+            <img src="assets/png/showcase-contact-sheet.png" alt="Showcase contact sheet" />
+            <p>所有功能片段的快速视觉索引。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

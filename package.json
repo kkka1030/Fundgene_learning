@@ -1,0 +1,23 @@
+{
+  "name": "fundgene",
+  "private": true,
+  "packageManager": "pnpm@10.6.5",
+  "scripts": {
+    "repo:audit": "echo 'FundGene now has canonical apps/web and apps/api skeletons. Read AGENTS.md for current implementation truth before assuming business completeness.'",
+    "dev:web": "pnpm --filter @fundgene/web dev",
+    "build:web": "pnpm --filter @fundgene/web build",
+    "lint:web": "pnpm --filter @fundgene/web lint",
+    "test:web:e2e": "pnpm --filter @fundgene/web test:e2e",
+    "test:web:a11y": "pnpm --filter @fundgene/web test:a11y",
+    "sync:api": "uv sync --project apps/api --extra dev",
+    "dev:api": "uv run --project apps/api uvicorn app.main:app --reload",
+    "test:api": "uv run --project apps/api python -m pytest -p no:capture",
+    "test:agent-evals": "uv run --project apps/api python services/evals/run_agent_evals.py",
+    "smoke:deepseek": "uv run --project apps/api python -m app.scripts.deepseek_smoke",
+    "seed:api:dev": "uv run --project apps/api python -m app.scripts.seed_dev",
+    "migrate:api": "uv run --project apps/api alembic -c apps/api/alembic.ini upgrade head",
+    "migrate:api:sql": "uv run --project apps/api alembic -c apps/api/alembic.ini upgrade head --sql",
+    "infra:up": "docker compose -f infra/docker/docker-compose.yml up -d",
+    "infra:down": "docker compose -f infra/docker/docker-compose.yml down"
+  }
+}

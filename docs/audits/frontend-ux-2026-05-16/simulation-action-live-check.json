@@ -1,0 +1,10 @@
+{
+  "name": "simulation_start_submit_action",
+  "ok": true,
+  "started": true,
+  "selectedChoice": true,
+  "submittedAction": true,
+  "feedbackVisible": true,
+  "url": "http://127.0.0.1:3000/simulation",
+  "error": null
+}

@@ -1,0 +1,89 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+
+jobs:
+  web:
+    name: Web Lint, Build, E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm --filter @fundgene/web exec playwright install --with-deps chromium
+
+      - name: Lint web
+        run: pnpm lint:web
+
+      - name: Build web
+        run: pnpm build:web
+
+      - name: Run web E2E and a11y tests
+        run: pnpm test:web:e2e
+
+  api:
+    name: API Tests and Migration SQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync API dependencies
+        run: pnpm sync:api
+
+      - name: Run API tests
+        run: pnpm test:api
+
+      - name: Run agent evals
+        run: pnpm test:agent-evals
+
+      - name: Validate API migration SQL
+        run: pnpm migrate:api:sql
